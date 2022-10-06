@@ -20,4 +20,4 @@ python_version = "3.10"
 [scripts]
 build = "./scripts/build.sh"
 lint = "./scripts/lint.sh"
-test = "./scripts/test.sh"
+test = "pytest -vv"
