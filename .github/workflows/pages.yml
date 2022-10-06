@@ -2,7 +2,7 @@ name: pages
 
 on:  # yamllint disable-line rule:truthy
   push:
-    branches:
+    tags:
       - "*"
 
 permissions:
