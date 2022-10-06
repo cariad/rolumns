@@ -1,4 +1,14 @@
-{
-  "favourite_colour": "green",
-  "name": "alice"
-}
+[
+  {
+    "favourite_colour": "green",
+    "name": "alice"
+  },
+  {
+    "favourite_colour": "magenta",
+    "name": "bob"
+  },
+  {
+    "favourite_colour": "orange",
+    "name": "charlie"
+  }
+]
