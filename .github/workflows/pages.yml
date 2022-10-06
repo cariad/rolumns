@@ -1,9 +1,9 @@
 name: pages
 
-on:  # yamllint disable-line rule:truthy
-  push:
-    tags:
-      - "*"
+# on:  # yamllint disable-line rule:truthy
+#   push:
+#     tags:
+#       - "*"
 
 permissions:
   contents: read
@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
+      - run: pip install pipenv
       - run: pipenv install --dev
       - run: pipenv run pdoc -o docs rolumns
       - uses: actions/upload-pages-artifact@v1
