@@ -27,10 +27,17 @@ class ColumnSet:
             [c.name for c in self._columns],
         ]
 
-        row: List[Any] = []
+        def add_datum(datum: Any) -> None:
+            row: List[Any] = []
 
-        for c in self._columns:
-            row.append(c.source.resolve_from(data))
+            for c in self._columns:
+                row.append(c.source.resolve_from(datum))
+            rows.append(row)
 
-        rows.append(row)
+        if isinstance(data, list):
+            for datum in data:
+                add_datum(datum)
+        else:
+            add_datum(data)
+
         return rows
