@@ -55,10 +55,20 @@ workflows:
       - lint:
           context:
             - python
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
 
       - test:
           context:
             - python
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
 
       - build:
           context:
@@ -66,3 +76,8 @@ workflows:
           requires:
             - lint
             - test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
