@@ -56,18 +56,18 @@ workflows:
           context:
             - python
           filters:
-            tags:
-              only: /.*/
             branches:
+              only: /.*/
+            tags:
               only: /.*/
 
       - test:
           context:
             - python
           filters:
-            tags:
-              only: /.*/
             branches:
+              only: /.*/
+            tags:
               only: /.*/
 
       - build:
@@ -77,7 +77,7 @@ workflows:
             - lint
             - test
           filters:
-            tags:
-              only: /.*/
             branches:
+              only: /.*/
+            tags:
               only: /.*/
