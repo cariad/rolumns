@@ -1,9 +1,9 @@
 name: pages
 
-# on:  # yamllint disable-line rule:truthy
-#   push:
-#     tags:
-#       - "*"
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "*"
 
 permissions:
   contents: read
