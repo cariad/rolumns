@@ -30,3 +30,14 @@ def test_sub() -> None:
     cs.append(Column("Address", ColumnSource("address.planet")))
     actual = cs.rows(inp)
     assert actual == exp
+
+
+def test_repeating_sub() -> None:
+    (inp, exp) = load_test_case(3)
+    cs = ColumnSet()
+    cs.append(Column("Name", ColumnSource("name")))
+    cs.append(Column("Favourite Colour", ColumnSource("favourite_colour")))
+    addresses = ColumnSet("addresses")
+    addresses.append(Column("Address", ColumnSource("planet")))
+    cs.append(addresses)
+    assert cs.rows(inp) == exp

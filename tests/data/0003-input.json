@@ -1,0 +1,38 @@
+[
+  {
+    "addresses": [
+      {
+        "planet": "Earth"
+      },
+      {
+        "planet": "Pringle IV"
+      }
+    ],
+    "favourite_colour": "green",
+    "name": "alice"
+  },
+  {
+    "addresses": [
+      {
+        "planet": "Mars"
+      },
+      {
+        "planet": "Primula II"
+      }
+    ],
+    "favourite_colour": "magenta",
+    "name": "bob"
+  },
+  {
+    "addresses": [
+      {
+        "planet": "Pluto"
+      },
+      {
+        "planet": "Mayo Prime"
+      }
+    ],
+    "favourite_colour": "orange",
+    "name": "charlie"
+  }
+]
