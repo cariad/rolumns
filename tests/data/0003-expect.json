@@ -1,0 +1,9 @@
+[
+  ["Name",    "Favourite Colour", "Address"],
+  ["alice",   "green",            "Earth"],
+  ["alice",   "green",            "Pringle IV"],
+  ["bob",     "magenta",          "Mars"],
+  ["bob",     "magenta",          "Primula II"],
+  ["charlie", "orange",           "Pluto"],
+  ["charlie", "orange",           "Mayo Prime"]
+]
