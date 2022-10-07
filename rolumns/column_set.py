@@ -9,9 +9,9 @@ class ColumnSet:
     """
 
     def __init__(self) -> None:
-        self._columns: List[Column[Any]] = []
+        self._columns: List[Column] = []
 
-    def append(self, column: Column[Any]) -> None:
+    def append(self, column: Column) -> None:
         """
         Appends a column to the set.
         """
@@ -31,7 +31,7 @@ class ColumnSet:
             row: List[Any] = []
 
             for c in self._columns:
-                row.append(c.source.resolve_from(datum))
+                row.append(c.source.read(datum))
             rows.append(row)
 
         if isinstance(data, list):

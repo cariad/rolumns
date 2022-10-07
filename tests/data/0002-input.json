@@ -1,0 +1,23 @@
+[
+  {
+    "address": {
+      "planet": "Earth"
+    },
+    "favourite_colour": "green",
+    "name": "alice"
+  },
+  {
+    "address": {
+      "planet": "Mars"
+    },
+    "favourite_colour": "magenta",
+    "name": "bob"
+  },
+  {
+    "address": {
+      "planet": "Pluto"
+    },
+    "favourite_colour": "orange",
+    "name": "charlie"
+  }
+]
