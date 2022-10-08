@@ -1,0 +1,35 @@
+[
+  {
+    "addresses": {
+      "current": {
+        "planet": "Earth"
+      },
+      "backup": {
+        "planet": "Pringle IV"
+      }
+    },
+    "name": "alice"
+  },
+  {
+    "addresses": {
+      "current": {
+        "planet": "Mars"
+      },
+      "backup": {
+        "planet": "Primula II"
+      }
+    },
+    "name": "bob"
+  },
+  {
+    "addresses": {
+      "current": {
+        "planet": "Pluto"
+      },
+      "backup": {
+        "planet": "Mayo Prime"
+      }
+    },
+    "name": "charlie"
+  }
+]

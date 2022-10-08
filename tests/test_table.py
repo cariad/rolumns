@@ -70,3 +70,21 @@ def test_repeating_sub() -> None:
     addresses.add("Address", "planet")
 
     assert list(Table(cs).rows(inp)) == exp
+
+
+def test_find() -> None:
+    (inp, exp) = load_test_case(4)
+    cs = ColumnSet()
+    cs.add("Name", "name")
+    cs.add("Current Address", "addresses.current.planet")
+
+    assert list(Table(cs).rows(inp)) == exp
+
+
+def test_find_and_group() -> None:
+    (inp, exp) = load_test_case(5)
+    cs = ColumnSet()
+    cs.add("Name", "name")
+    colours = cs.create_repeater("favourites.colours")
+    colours.add("Favourite Colours", "value")
+    assert list(Table(cs).rows(inp)) == exp

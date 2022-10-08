@@ -1,0 +1,41 @@
+[
+  {
+    "favourites": {
+      "colours": [
+        {
+          "value": "forest green"
+        },
+        {
+          "value": "lime green"
+        }
+      ]
+    },
+    "name": "alice"
+  },
+  {
+    "favourites": {
+      "colours": [
+        {
+          "value": "lava magenta"
+        },
+        {
+          "value": "nebulae magenta"
+        }
+      ]
+    },
+    "name": "bob"
+  },
+  {
+    "favourites": {
+      "colours": [
+        {
+          "value": "burnt orange"
+        },
+        {
+          "value": "sunset orange"
+        }
+      ]
+    },
+    "name": "charlie"
+  }
+]
