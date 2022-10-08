@@ -3,6 +3,8 @@
     "cariad",
     "cimg",
     "codecov",
+    "dateutil",
+    "isoparse",
     "pdoc",
     "pipenv",
     "Pipfile",

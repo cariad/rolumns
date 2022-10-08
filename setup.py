@@ -43,10 +43,12 @@ setup(
     packages=[
         "rolumns",
         "rolumns.exceptions",
+        "rolumns.translators",
     ],
     package_data={
         "rolumns": ["py.typed"],
         "rolumns.exceptions": ["py.typed"],
+        "rolumns.translators": ["py.typed"],
     },
     python_requires=">=3.7",
     url="https://github.com/cariad/rolumns",

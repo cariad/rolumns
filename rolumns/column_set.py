@@ -1,10 +1,10 @@
 from typing import Any, List, Optional, Union
 
 from rolumns.column import Column
-from rolumns.column_source import ColumnSource
 from rolumns.data_resolver import DataResolver
 from rolumns.exceptions import MultipleRepeaters
 from rolumns.populated_columns import PopulatedColumns
+from rolumns.source import Source
 
 
 class ColumnSet:
@@ -21,15 +21,14 @@ class ColumnSet:
         self._path = path
         self._repeater: Optional[ColumnSet] = None
 
-    def add(self, name: str, source: Union[ColumnSource, str]) -> None:
+    def add(self, name: str, source: Union[Source, str]) -> None:
         """
         Adds a column.
 
-        `source` can be either an explicit `ColumnSource` or a path to the
-        dictionary value to read.
+        `source` can be either an explicit `Source` or a path to the value.
         """
 
-        source = ColumnSource(source) if isinstance(source, str) else source
+        source = Source(source) if isinstance(source, str) else source
         column = Column(name, source)
         self._columns.append(column)
 
