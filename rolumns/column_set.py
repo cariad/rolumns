@@ -1,7 +1,8 @@
-from typing import Any, Iterable, List, Optional, Union
+from typing import Any, List, Optional, Union
 
 from rolumns.column import Column
 from rolumns.column_source import ColumnSource
+from rolumns.data_resolver import DataResolver
 from rolumns.exceptions import MultipleRepeaters
 from rolumns.populated_columns import PopulatedColumns
 
@@ -56,13 +57,7 @@ class ColumnSet:
 
         columns = PopulatedColumns()
 
-        if isinstance(data, list):
-            data_list: Iterable[Any] = data
-        else:
-            data_list = [data]
-
-        for datum in data_list:
-            datum = datum[self._path] if self._path else datum
+        for datum in DataResolver(data).resolve(self._path):
             inner = PopulatedColumns()
 
             for c in self._columns:
