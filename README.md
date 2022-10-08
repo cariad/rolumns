@@ -17,7 +17,7 @@ Say we have this data that we want to transform into a table with "Name" and "Em
 ```json
 {
     "name": "Robert Pringles",
-    "email": "bob@pringles.lol"
+    "email": "bob@pringles.pop"
 }
 ```
 
@@ -30,7 +30,7 @@ import rolumns
 
 data = {
     "name": "Robert Pringles",
-    "email": "bob@pringles.lol",
+    "email": "bob@pringles.pop",
 }
 
 columns = rolumns.Columns()
@@ -50,7 +50,7 @@ This creates an iterable list of lists that can be passed into something like [o
 ```json
 [
     ["Name",            "Email"],
-    ["Robert Pringles", "bob@pringles.lol"],
+    ["Robert Pringles", "bob@pringles.pop"],
 ]
 ```
 
@@ -63,4 +63,4 @@ markdown = renderer.render(data)
 
 | Name | Email |
 | - | - |
-| Robert Pringles | bob@pringles.lol |
+| Robert Pringles | bob@pringles.pop |

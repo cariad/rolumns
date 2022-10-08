@@ -5,7 +5,7 @@ import rolumns.renderers
 def test() -> None:
     data = {
         "name": "Robert Pringles",
-        "email": "bob@pringles.lol",
+        "email": "bob@pringles.pop",
     }
 
     columns = rolumns.Columns()
@@ -16,7 +16,7 @@ def test() -> None:
 
     expect_rows = [
         ["Name", "Email"],
-        ["Robert Pringles", "bob@pringles.lol"],
+        ["Robert Pringles", "bob@pringles.pop"],
     ]
 
     assert list(rows_renderer.render(data)) == expect_rows
@@ -26,7 +26,7 @@ def test() -> None:
     expect_md = [
         "| Name | Email |",
         "| - | - |",
-        "| Robert Pringles | bob@pringles.lol |",
+        "| Robert Pringles | bob@pringles.pop |",
     ]
 
     assert list(md_renderer.render(data)) == expect_md
