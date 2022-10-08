@@ -1,18 +1,22 @@
 from json import load
 from pathlib import Path
-from typing import Any, Literal, Tuple, Union
+from typing import Any, Literal, Optional, Tuple, Union
 
 Raison = Union[Literal["expect"], Literal["input"]]
 
 
-def load_data(test_case: int, raison: Raison) -> Any:
+def load_data(test_case: int, raison: Raison, variant: Optional[str] = None) -> Any:
     data = Path("tests") / "data"
-    with open(data / f"{test_case:04}-{raison}.json") as f:
+    variant = f"-{variant}" if variant else ""
+    with open(data / f"{test_case:04}-{raison}{variant}.json") as f:
         return load(f)
 
 
-def load_test_case(id: int) -> Tuple[Any, Any]:
-    return (load_data(id, "input"), load_data(id, "expect"))
+def load_test_case(id: int, expect_variant: Optional[str] = None) -> Tuple[Any, Any]:
+    return (
+        load_data(id, "input"),
+        load_data(id, "expect", variant=expect_variant),
+    )
 
 
 __all__ = [
