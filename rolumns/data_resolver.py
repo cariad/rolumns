@@ -1,6 +1,7 @@
-from typing import Any, Iterable, List, Optional, TypeVar
+from logging import getLogger
+from typing import Any, Iterable, List, Optional
 
-TRecord = TypeVar("TRecord")
+logger = getLogger("rolumns")
 
 
 class DataResolver:
@@ -26,7 +27,12 @@ class DataResolver:
 
         else:
             part = parts.pop()
-            data = data[part]
+
+            try:
+                data = data[part]
+            except KeyError:
+                logger.warning('No "%s" in %s', part, data)
+                return None
 
             if not parts:
                 # This is the leaf, so there better be something to read!

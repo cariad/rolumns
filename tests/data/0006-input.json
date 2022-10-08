@@ -1,0 +1,20 @@
+[
+  {
+    "favourite_colour": "green",
+    "name": "alice",
+    "planet": "Earth",
+    "smell": "lavender"
+  },
+  {
+    "favourite_colour": "magenta",
+    "name": "bob",
+    "planet": "Mars",
+    "smell": "rose"
+  },
+  {
+    "favourite_colour": "orange",
+    "name": "charlie",
+    "planet": "Pluto",
+    "smell": "lynx"
+  }
+]

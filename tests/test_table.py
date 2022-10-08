@@ -1,6 +1,7 @@
 from dateutil import parser
 
 from rolumns.column_set import ColumnSet
+from rolumns.groups import ByUserDefinedFields, UserDefinedField
 from rolumns.source import Source
 from rolumns.table import Table
 from rolumns.translators import ToDateTime
@@ -70,7 +71,7 @@ def test_repeating_sub() -> None:
     cs = ColumnSet()
     cs.add("Name", "name")
     cs.add("Favourite Colour", "favourite_colour")
-    addresses = cs.create_repeater("addresses")
+    addresses = cs.add_grouped_set("addresses")
     addresses.add("Address", "planet")
 
     assert list(Table(cs).rows(inp)) == exp
@@ -89,7 +90,7 @@ def test_find_and_group() -> None:
     (inp, exp) = load_test_case(5)
     cs = ColumnSet()
     cs.add("Name", "name")
-    colours = cs.create_repeater("favourites.colours")
+    colours = cs.add_grouped_set("favourites.colours")
     colours.add("Favourite Colours", "value")
     assert list(Table(cs).rows(inp)) == exp
 
@@ -112,4 +113,22 @@ def test_dates() -> None:
     cs.add("Name", "name")
     cs.add("Date of Birth", Source("date_of_birth", trans=ToDateTime()))
 
+    assert list(Table(cs).rows(inp)) == exp
+
+
+def test_udf_lookup() -> None:
+    (inp, exp) = load_test_case(6)
+    cs = ColumnSet()
+    cs.add("Name", "name")
+
+    udfs = cs.add_grouped_set(
+        ByUserDefinedFields(
+            UserDefinedField("Favourite colour", "favourite_colour"),
+            UserDefinedField("Planet", "planet"),
+            UserDefinedField("Smell", "smell"),
+        )
+    )
+
+    udfs.add("UDF Name", "name")
+    udfs.add("UDF Value", "value")
     assert list(Table(cs).rows(inp)) == exp
