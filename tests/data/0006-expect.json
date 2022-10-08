@@ -1,0 +1,12 @@
+[
+  ["Name",    "UDF Name",         "UDF Value"],
+  ["alice",   "Favourite colour", "green"],
+  ["alice",   "Planet",           "Earth"],
+  ["alice",   "Smell",            "lavender"],
+  ["bob",     "Favourite colour", "magenta"],
+  ["bob",     "Planet"          , "Mars"],
+  ["bob",     "Smell",            "rose"],
+  ["charlie", "Favourite colour", "orange"],
+  ["charlie", "Planet",           "Pluto"],
+  ["charlie", "Smell",            "lynx"]
+]
