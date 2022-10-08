@@ -5,6 +5,7 @@
     "codecov",
     "dateutil",
     "isoparse",
+    "openpyxl",
     "pdoc",
     "pipenv",
     "Pipfile",

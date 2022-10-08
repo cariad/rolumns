@@ -1,11 +1,11 @@
 from pytest import raises
 
-from rolumns.column_set import ColumnSet
+from rolumns.columns import Columns
 from rolumns.exceptions import MultipleRepeaters
 
 
 def test_create_repeater__multiple() -> None:
-    cs = ColumnSet()
+    cs = Columns()
     cs.add_grouped_set("")
 
     with raises(MultipleRepeaters) as ex:

@@ -7,7 +7,7 @@ from rolumns.populated_columns import PopulatedColumns
 from rolumns.source import Source
 
 
-class ColumnSet:
+class Columns:
     """
     A set of columns.
     """
@@ -15,7 +15,7 @@ class ColumnSet:
     def __init__(self, group: Optional[Group] = None) -> None:
         self._columns: List[Column] = []
         self._group = group or ByPath()
-        self._grouped_set: Optional[ColumnSet] = None
+        self._grouped_set: Optional[Columns] = None
 
     def add(self, name: str, source: Union[Source, str]) -> None:
         """
@@ -28,7 +28,7 @@ class ColumnSet:
         column = Column(name, source)
         self._columns.append(column)
 
-    def add_grouped_set(self, group: Union[Group, str]) -> "ColumnSet":
+    def add_grouped_set(self, group: Union[Group, str]) -> "Columns":
         """
         Creates and adds a grouped column set.
 
@@ -41,7 +41,7 @@ class ColumnSet:
             raise MultipleRepeaters()
 
         group = group if isinstance(group, Group) else ByPath(group)
-        self._grouped_set = ColumnSet(group)
+        self._grouped_set = Columns(group)
         return self._grouped_set
 
     def make_populated_columns(self, data: Any) -> PopulatedColumns:

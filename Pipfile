@@ -11,11 +11,13 @@ mypy = "~=0.982"
 pdoc = "~=12.2"
 pytest = "~=7.1"
 pytest-cov = "~=4.0"
-python-dateutil = "~=2.8"
 shellcheck-py = "~=0.8"
 twine = "~=4.0"
 types-python-dateutil = "~=2.8"
 yamllint = "~=1.28"
+
+[packages]
+python-dateutil = "~=2.8"
 
 [requires]
 python_version = "3.10"
