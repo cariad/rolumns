@@ -28,6 +28,6 @@ class MarkdownRenderer:
         rows = self._rows.render(data)
 
         for index, row in enumerate(rows):
-            yield "| " + " | ".join(row) + " |"
+            yield "| " + " | ".join([str(c) for c in row]) + " |"
             if index == 0:
                 yield "| " + " | ".join("-" * len(row)) + " |"
