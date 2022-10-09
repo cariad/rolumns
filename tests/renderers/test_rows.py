@@ -4,7 +4,7 @@ from rolumns.columns import Columns
 from rolumns.groups import ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from rolumns.source import Source
-from rolumns.translators import ToDateTime
+from rolumns.translators import to_datetime
 from tests.data import load_test_case
 
 # Fiddly cases:
@@ -111,7 +111,7 @@ def test_dates() -> None:
 
     cs = Columns()
     cs.add("Name", "name")
-    cs.add("Date of Birth", Source("date_of_birth", trans=ToDateTime()))
+    cs.add("Date of Birth", Source("date_of_birth", translator=to_datetime))
 
     assert list(RowsRenderer(cs).render(inp)) == exp
 

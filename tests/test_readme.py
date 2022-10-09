@@ -1,5 +1,6 @@
 import rolumns
 import rolumns.renderers
+import rolumns.translators
 
 
 def test_simple() -> None:
@@ -242,3 +243,44 @@ def test_repeating_chained() -> None:
     ]
 
     assert list(rows) == expect
+
+
+def test_translate() -> None:
+    data = [
+        {
+            "name": "Robert Pringles",
+            "email": "bob@pringles.pop",
+        },
+        {
+            "name": "Daniel Sausage",
+            "email": "dan@pringles.pop",
+        },
+        {
+            "name": "Charlie Marmalade",
+            "email": "charlie@pringles.pop",
+        },
+    ]
+
+    def censor(state: rolumns.translators.TranslationState) -> str:
+        value = str("" if state.value is None else state.value)
+
+        if len(value) < 3:
+            return "".join(["*" * len(value)])
+
+        return value[0] + "".join(["*" * (len(value) - 2)]) + value[-1]
+
+    columns = rolumns.Columns()
+    columns.add("Name", "name")
+    columns.add("Email", rolumns.Source("email", translator=censor))
+
+    renderer = rolumns.renderers.MarkdownRenderer(columns)
+
+    expect = [
+        "| Name | Email |",
+        "| - | - |",
+        "| Robert Pringles | b**************p |",
+        "| Daniel Sausage | d**************p |",
+        "| Charlie Marmalade | c******************p |",
+    ]
+
+    assert list(renderer.render(data)) == expect

@@ -1,7 +1,8 @@
 from typing import Any, Iterable, Optional
 
 from rolumns.data_resolver import DataResolver
-from rolumns.translators import Translator
+from rolumns.exceptions import TranslationFailed
+from rolumns.translators import TranslationState, Translator
 
 
 class Source:
@@ -29,10 +30,10 @@ class Source:
     def __init__(
         self,
         path: str,
-        trans: Optional[Translator[Any]] = None,
+        translator: Optional[Translator] = None,
     ) -> None:
         self._path = path
-        self._translator = trans
+        self._translator = translator
 
     def read(self, record: Any) -> Iterable[Any]:
         """
@@ -41,5 +42,11 @@ class Source:
 
         for datum in DataResolver(record).resolve(self._path):
             if self._translator:
-                datum = self._translator.translate(datum)
+                state = TranslationState(value=datum)
+
+                try:
+                    datum = self._translator(state)
+                except Exception as ex:
+                    raise TranslationFailed(datum, str(ex))
+
             yield datum
