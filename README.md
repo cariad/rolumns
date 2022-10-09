@@ -333,3 +333,66 @@ rows = renderer.render(data)
 | Charlie Marmalade | charlie@pringles.pop | 2009 | Engineer | Least Security Vulnerabilities |
 | Charlie Marmalade | charlie@pringles.pop | 2010 | Senior Engineer | Best Code Reviews |
 | Charlie Marmalade | charlie@pringles.pop | 2011 | CTO | Cloud Uplift of the Century |
+
+### Translating values
+
+Sometimes, you need to translate a value before it's rendered; perhaps to convert a string to a Python `datetime` instance, or to format a number as currency.
+
+So, for example, let's say we want to censor the email addresses we're writing out to the table.
+
+First, we write a function that takes a `rolumns.translators.TranslationState` state and returns the translated value:
+
+```python
+def censor(state: rolumns.translators.TranslationState) -> str:
+    value = str("" if state.value is None else state.value)
+
+    if len(value) < 3:
+        return "".join(["*" * len(value)])
+
+    return value[0] + "".join(["*" * (len(value) - 2)]) + value[-1]
+```
+
+Then, when we add the "Email" column to the column set, we pass an explicit `rolumns.Source` instance rather than just the string path:
+
+```python
+# columns.add("Email", "email")
+columns.add("Email", Source("email", translator=censor))
+```
+
+Here's the full code sample:
+
+```python
+import rolumns
+import rolumns.renderers
+import rolumns.translators
+
+data = [
+    {
+        "name": "Robert Pringles",
+        "email": "bob@pringles.pop",
+    },
+    {
+        "name": "Daniel Sausage",
+        "email": "dan@pringles.pop",
+    },
+    {
+        "name": "Charlie Marmalade",
+        "email": "charlie@pringles.pop",
+    },
+]
+
+columns = rolumns.Columns()
+columns.add("Name", "name")
+columns.add("Email", rolumns.Source("email", translator=censor))
+
+renderer = rolumns.renderers.MarkdownRenderer(columns)
+rows = renderer.render(data)
+```
+
+| Name | Email |
+| - | - |
+| Robert Pringles | b**************p |
+| Daniel Sausage | d**************p |
+| Charlie Marmalade | c******************p |
+
+A collection of translators are provided within `rolumns.translators`.
