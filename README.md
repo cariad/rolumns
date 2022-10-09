@@ -396,3 +396,135 @@ rows = renderer.render(data)
 | Charlie Marmalade | c******************p |
 
 A collection of translators are provided within `rolumns.translators`.
+
+### User-defined fields
+
+User-defined fields allow you to pivot a table.
+
+For example, given this date:
+
+```json
+[
+    {
+        "name": "Robert Pringles",
+        "address": "Earth",
+        "email": "bob@pringles.pop",
+        "title": "CEO"
+    },
+    {
+        "name": "Daniel Sausage",
+        "address": "Mars",
+        "email": "dan@pringles.pop",
+        "title": "Head Chef"
+    },
+    {
+        "name": "Charlie Marmalade",
+        "address": "Pluto",
+        "email": "charlie@pringles.pop",
+        "title": "CTO"
+    }
+]
+```
+
+...we already know how to create table like this:
+
+| Name              | Address | Email                | Title     |
+| -                 | -       | -                    | -         |
+| Robert Pringles   | Earth   | bob@pringles.pop     | CEO       |
+| Daniel Sausage    | Mars    | dan@pringles.pop     | Head Chef |
+| Charlie Marmalade | Pluto   | charlie@pringles.pop | CTO       |
+
+...but we might prefer to pivot the same data like this:
+
+| Name | Property | Value |
+| - | - | - |
+| Robert Pringles | Address | Earth |
+| Robert Pringles | Email | bob@pringles.pop |
+| Robert Pringles | Title | CEO |
+| Daniel Sausage | Address | Mars |
+| Daniel Sausage | Email | dan@pringles.pop |
+| Daniel Sausage | Title | Head Chef |
+| Charlie Marmalade | Address | Pluto |
+| Charlie Marmalade | Email | charlie@pringles.pop |
+| Charlie Marmalade | Title | CTO |
+
+To achieve this, we start by creating a typical column set and adding the "Name" column:
+
+```python
+columns = rolumns.Columns()
+columns.add("Name", "name")
+```
+
+Now we'll create a `rolumns.groups.ByUserDefinedFields` instance and add our user-defined fields. The first argument describes the field name and the second argument describes the path to the value:
+
+```python
+group = rolumns.groups.ByUserDefinedFields()
+group.append("Address", "address")
+group.append("Email", "email")
+group.append("Title", "title")
+```
+
+Now we'll pass this grouping to the root column set, where in previous examples we've passed the path to the collection to iterate:
+
+```python
+udfs = columns.add_group(group)
+```
+
+To add the field names and values to the column set, we call the same `add` function as before. The paths are specified by the `ByUserDefinedFields.NAME` and `ByUserDefinedFields.VALUE` constants:
+
+```python
+udfs.add("Property", rolumns.groups.ByUserDefinedFields.NAME)
+udfs.add("Value", rolumns.groups.ByUserDefinedFields.VALUE)
+```
+
+The full code sample looks like this:
+
+```python
+data = [
+    {
+        "name": "Robert Pringles",
+        "address": "Earth",
+        "email": "bob@pringles.pop",
+        "title": "CEO",
+    },
+    {
+        "name": "Daniel Sausage",
+        "address": "Mars",
+        "email": "dan@pringles.pop",
+        "title": "Head Chef",
+    },
+    {
+        "name": "Charlie Marmalade",
+        "address": "Pluto",
+        "email": "charlie@pringles.pop",
+        "title": "CTO",
+    },
+]
+
+columns = rolumns.Columns()
+columns.add("Name", "name")
+
+group = rolumns.groups.ByUserDefinedFields()
+group.append("Address", "address")
+group.append("Email", "email")
+group.append("Title", "title")
+
+udfs = columns.add_group(group)
+udfs.add("Property", rolumns.groups.ByUserDefinedFields.NAME)
+udfs.add("Value", rolumns.groups.ByUserDefinedFields.VALUE)
+
+renderer = rolumns.renderers.MarkdownRenderer(columns)
+rows = renderer.render(data)
+```
+
+| Name | Property | Value |
+| - | - | - |
+| Robert Pringles | Address | Earth |
+| Robert Pringles | Email | bob@pringles.pop |
+| Robert Pringles | Title | CEO |
+| Daniel Sausage | Address | Mars |
+| Daniel Sausage | Email | dan@pringles.pop |
+| Daniel Sausage | Title | Head Chef |
+| Charlie Marmalade | Address | Pluto |
+| Charlie Marmalade | Email | charlie@pringles.pop |
+| Charlie Marmalade | Title | CTO |
