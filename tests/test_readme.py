@@ -1,4 +1,5 @@
 import rolumns
+import rolumns.groups
 import rolumns.renderers
 import rolumns.translators
 
@@ -283,4 +284,56 @@ def test_translate() -> None:
         "| Charlie Marmalade | c******************p |",
     ]
 
+    assert list(renderer.render(data)) == expect
+
+
+def test_udf() -> None:
+    data = [
+        {
+            "name": "Robert Pringles",
+            "address": "Earth",
+            "email": "bob@pringles.pop",
+            "title": "CEO",
+        },
+        {
+            "name": "Daniel Sausage",
+            "address": "Mars",
+            "email": "dan@pringles.pop",
+            "title": "Head Chef",
+        },
+        {
+            "name": "Charlie Marmalade",
+            "address": "Pluto",
+            "email": "charlie@pringles.pop",
+            "title": "CTO",
+        },
+    ]
+
+    columns = rolumns.Columns()
+    columns.add("Name", "name")
+
+    group = rolumns.groups.ByUserDefinedFields()
+    group.append("Address", "address")
+    group.append("Email", "email")
+    group.append("Title", "title")
+
+    udfs = columns.add_group(group)
+    udfs.add("Property", rolumns.groups.ByUserDefinedFields.NAME)
+    udfs.add("Value", rolumns.groups.ByUserDefinedFields.VALUE)
+
+    expect = [
+        "| Name | Property | Value |",
+        "| - | - | - |",
+        "| Robert Pringles | Address | Earth |",
+        "| Robert Pringles | Email | bob@pringles.pop |",
+        "| Robert Pringles | Title | CEO |",
+        "| Daniel Sausage | Address | Mars |",
+        "| Daniel Sausage | Email | dan@pringles.pop |",
+        "| Daniel Sausage | Title | Head Chef |",
+        "| Charlie Marmalade | Address | Pluto |",
+        "| Charlie Marmalade | Email | charlie@pringles.pop |",
+        "| Charlie Marmalade | Title | CTO |",
+    ]
+
+    renderer = rolumns.renderers.MarkdownRenderer(columns)
     assert list(renderer.render(data)) == expect

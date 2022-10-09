@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Union
+from typing import Any, Iterable, List, Union
 
 from rolumns.exceptions import UserDefinedFieldResolvedToMultipleValues
 from rolumns.groups.group import Group
@@ -12,8 +12,21 @@ class UserDefinedField:
 
 
 class ByUserDefinedFields(Group):
+    NAME = "name"
+    """
+    Path to the field name.
+    """
+
+    VALUE = "value"
+    """
+    Path to the field value.
+    """
+
     def __init__(self, *fields: UserDefinedField) -> None:
-        self._fields = fields
+        self._fields: List[UserDefinedField] = [u for u in fields]
+
+    def append(self, name: str, source: Union[Source, str]) -> None:
+        self._fields.append(UserDefinedField(name, source))
 
     def name(self) -> str:
         return "__user_defined_fields__"
@@ -31,6 +44,6 @@ class ByUserDefinedFields(Group):
                 first_value = value
 
             yield {
-                "name": field.name,
-                "value": first_value,
+                self.NAME: field.name,
+                self.VALUE: first_value,
             }
