@@ -15,6 +15,9 @@ class ByUserDefinedFields(Group):
     def __init__(self, *fields: UserDefinedField) -> None:
         self._fields = fields
 
+    def name(self) -> str:
+        return "__user_defined_fields__"
+
     def resolve(self, data: Any) -> Iterable[Any]:
         for field in self._fields:
             first_value = None

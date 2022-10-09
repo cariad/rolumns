@@ -34,12 +34,18 @@ class RowsRenderer:
         column_ids = self._mask or self._columns.names()
         yield column_ids
 
-        columns = self._columns.make_populated_columns(data)
+        columns = self._columns.to_column_values(data)
+        height = 0
 
-        for row_index in range(columns.height()):
+        for _, value in columns.items():
+            if height > 0 and height != len(value):
+                raise Exception
+            height = max(height, len(value))
+
+        for row_index in range(height):
             row: List[Any] = []
 
             for column_id in column_ids:
-                row.append(columns.get(column_id, row_index))
+                row.append(columns[column_id][row_index])
 
             yield row
