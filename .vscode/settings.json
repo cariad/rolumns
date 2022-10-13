@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "autoclass",
     "cariad",
     "cimg",
     "codecov",
@@ -10,6 +11,11 @@
     "pipenv",
     "Pipfile",
     "rolumns",
-    "venv"
+    "testcode",
+    "testoutput",
+    "titlesonly",
+    "toctree",
+    "venv",
+    "viewcode"
   ]
 }
