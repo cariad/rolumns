@@ -1,0 +1,23 @@
+[
+  {
+    "name": "alice",
+    "favourite_things": [
+      "apples",
+      "rabbits"
+    ]
+  },
+  {
+    "name": "bob",
+    "favourite_things": [
+      "caramel"
+    ]
+  },
+  {
+    "name": "charlie",
+    "favourite_things": [
+      "airships",
+      "boats",
+      "trains"
+    ]
+  }
+]

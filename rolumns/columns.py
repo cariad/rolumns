@@ -16,14 +16,15 @@ class Columns:
         self._group = group or ByPath()
         self._grouped_set: Optional[Columns] = None
 
-    def add(self, name: str, source: Union[Source, str]) -> None:
+    def add(self, name: str, source: Optional[Union[Source, str]] = None) -> None:
         """
         Adds a column.
 
-        `source` can be either an explicit `Source` or a path to the value.
+        `source` can be either an explicit `Source` or a path to the value, or
+        `None` if this column set's record is an iterable list of primitives.
         """
 
-        source = Source(source) if isinstance(source, str) else source
+        source = source if isinstance(source, Source) else Source(source)
         column = Column(name, source)
         self._columns.append(column)
 

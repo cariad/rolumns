@@ -6,4 +6,8 @@ These pages describe some common scenarios and solutions.
 .. toctree::
     :titlesonly:
 
-    single-row
+    flat
+    flat-with-child-records
+    grouping-lists
+    grouping-objects
+    grouping-groups

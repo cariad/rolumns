@@ -42,7 +42,7 @@ def test_multiple() -> None:
         },
         {
             "name": "Daniel Sausage",
-            "email": "dan@pringles.pop",
+            "email": "danny@pringles.pop",
         },
         {
             "name": "Charlie Marmalade",
@@ -61,7 +61,7 @@ def test_multiple() -> None:
         "| Name | Email |",
         "| - | - |",
         "| Robert Pringles | bob@pringles.pop |",
-        "| Daniel Sausage | dan@pringles.pop |",
+        "| Daniel Sausage | danny@pringles.pop |",
         "| Charlie Marmalade | charlie@pringles.pop |",
     ]
 
@@ -254,7 +254,7 @@ def test_translate() -> None:
         },
         {
             "name": "Daniel Sausage",
-            "email": "dan@pringles.pop",
+            "email": "danny@pringles.pop",
         },
         {
             "name": "Charlie Marmalade",
@@ -280,7 +280,7 @@ def test_translate() -> None:
         "| Name | Email |",
         "| - | - |",
         "| Robert Pringles | b**************p |",
-        "| Daniel Sausage | d**************p |",
+        "| Daniel Sausage | d****************p |",
         "| Charlie Marmalade | c******************p |",
     ]
 
@@ -298,7 +298,7 @@ def test_udf() -> None:
         {
             "name": "Daniel Sausage",
             "address": "Mars",
-            "email": "dan@pringles.pop",
+            "email": "danny@pringles.pop",
             "title": "Head Chef",
         },
         {
@@ -328,7 +328,7 @@ def test_udf() -> None:
         "| Robert Pringles | Email | bob@pringles.pop |",
         "| Robert Pringles | Title | CEO |",
         "| Daniel Sausage | Address | Mars |",
-        "| Daniel Sausage | Email | dan@pringles.pop |",
+        "| Daniel Sausage | Email | danny@pringles.pop |",
         "| Daniel Sausage | Title | Head Chef |",
         "| Charlie Marmalade | Address | Pluto |",
         "| Charlie Marmalade | Email | charlie@pringles.pop |",

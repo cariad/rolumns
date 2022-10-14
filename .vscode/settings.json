@@ -6,6 +6,7 @@
     "codecov",
     "dateutil",
     "isoparse",
+    "noindex",
     "openpyxl",
     "pdoc",
     "pipenv",
