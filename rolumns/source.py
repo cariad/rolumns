@@ -29,7 +29,7 @@ class Source:
 
     def __init__(
         self,
-        path: str,
+        path: Optional[str],
         translator: Optional[Translator] = None,
     ) -> None:
         self._path = path

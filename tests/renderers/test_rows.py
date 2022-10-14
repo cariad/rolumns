@@ -132,3 +132,13 @@ def test_udf_lookup() -> None:
     udfs.add("UDF Name", "name")
     udfs.add("UDF Value", "value")
     assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_primitive_list() -> None:
+    (inp, exp) = load_test_case(7)
+    cs = Columns()
+    cs.add("Name", "name")
+
+    things = cs.add_group("favourite_things")
+    things.add("Favourite Things")
+    assert list(RowsRenderer(cs).render(inp)) == exp

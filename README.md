@@ -394,7 +394,7 @@ rows = renderer.render(data)
 | Name | Email |
 | - | - |
 | Robert Pringles | b**************p |
-| Daniel Sausage | d**************p |
+| Daniel Sausage | d****************p |
 | Charlie Marmalade | c******************p |
 
 A collection of translators are provided within `rolumns.translators`.
