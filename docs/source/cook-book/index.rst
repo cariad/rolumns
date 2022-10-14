@@ -11,3 +11,5 @@ These pages describe some common scenarios and solutions.
     grouping-lists
     grouping-objects
     grouping-groups
+    translating
+    udfs
