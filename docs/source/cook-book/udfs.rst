@@ -138,7 +138,7 @@ This code is similar to :doc:`the Flat Table example <flat>`, but note:
     group.append("Email", "email")
     group.append("Title", "title")
 
-    udfs = columns.add_group(group)
+    udfs = columns.group(group)
     udfs.add("Property", ByUserDefinedFields.NAME)
     udfs.add("Value", ByUserDefinedFields.VALUE)
 

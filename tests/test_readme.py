@@ -144,7 +144,7 @@ def test_repeating() -> None:
     columns.add("Name", "name")
     columns.add("Email", "email")
 
-    positions = columns.add_group("positions")
+    positions = columns.group("positions")
     positions.add("Year", "year")
     positions.add("Title", "title")
 
@@ -221,11 +221,11 @@ def test_repeating_chained() -> None:
     columns.add("Name", "name")
     columns.add("Email", "email")
 
-    positions = columns.add_group("positions")
+    positions = columns.group("positions")
     positions.add("Year", "year")
     positions.add("Title", "title")
 
-    awards = positions.add_group("awards")
+    awards = positions.group("awards")
     awards.add("Award", "award")
 
     renderer = rolumns.renderers.MarkdownRenderer(columns)
@@ -317,7 +317,7 @@ def test_udf() -> None:
     group.append("Email", "email")
     group.append("Title", "title")
 
-    udfs = columns.add_group(group)
+    udfs = columns.group(group)
     udfs.add("Property", rolumns.groups.ByUserDefinedFields.NAME)
     udfs.add("Value", rolumns.groups.ByUserDefinedFields.VALUE)
 

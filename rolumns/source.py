@@ -9,22 +9,31 @@ class Source:
     """
     Describes how to read a value from an object.
 
-    ## Example
+    :code:`path` describes the path to the value. For example, given this object:
 
-    Given this object:
+    .. code:: json
 
-    ```json
-    {
-        "address": {
-            "planet": "Pluto"
-        },
-        "favourite_colour": "orange",
-        "name": "charlie"
-    }
-    ```
+        {
+            "name": "Robert Pringles",
+            "address": {
+                "planet": "Pluto"
+            }
+        }
 
-    - The path `name` describes "orange".
-    - The path `address.planet` describes "Pluto".
+    - The path :code:`"name"` returns `Robert Pringles`
+    - The path :code:`"address.planet"` returns `Pluto`
+
+    And given this list of primitives:
+
+    .. code:: json
+
+        [
+            2022,
+            2023,
+            2024
+        ]
+
+    - The path :code:`None` iterates over the values
     """
 
     def __init__(
@@ -37,7 +46,7 @@ class Source:
 
     def read(self, record: Any) -> Iterable[Any]:
         """
-        Gets the prescribed value of `record`.
+        Yields each prescribed value of :code:`record`.
         """
 
         for datum in DataResolver(record).resolve(self._path):

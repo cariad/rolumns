@@ -117,7 +117,7 @@ This code is identical to :doc:`the Grouping by Lists example <grouping-lists>` 
     columns.add("Name", "name")
     columns.add("Email", "email")
 
-    positions = columns.add_group("positions")
+    positions = columns.group("positions")
     positions.add("Year", "year")
     positions.add("Title", "title")
 

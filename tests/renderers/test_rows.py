@@ -71,7 +71,7 @@ def test_repeating_sub() -> None:
     cs = Columns()
     cs.add("Name", "name")
     cs.add("Favourite Colour", "favourite_colour")
-    addresses = cs.add_group("addresses")
+    addresses = cs.group("addresses")
     addresses.add("Address", "planet")
 
     assert list(RowsRenderer(cs).render(inp)) == exp
@@ -90,7 +90,7 @@ def test_find_and_group() -> None:
     (inp, exp) = load_test_case(5)
     cs = Columns()
     cs.add("Name", "name")
-    colours = cs.add_group("favourites.colours")
+    colours = cs.group("favourites.colours")
     colours.add("Favourite Colours", "value")
     assert list(RowsRenderer(cs).render(inp)) == exp
 
@@ -121,7 +121,7 @@ def test_udf_lookup() -> None:
     cs = Columns()
     cs.add("Name", "name")
 
-    udfs = cs.add_group(
+    udfs = cs.group(
         ByUserDefinedFields(
             UserDefinedField("Favourite colour", "favourite_colour"),
             UserDefinedField("Planet", "planet"),
@@ -139,6 +139,6 @@ def test_primitive_list() -> None:
     cs = Columns()
     cs.add("Name", "name")
 
-    things = cs.add_group("favourite_things")
+    things = cs.group("favourite_things")
     things.add("Favourite Things")
     assert list(RowsRenderer(cs).render(inp)) == exp
