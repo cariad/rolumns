@@ -4,7 +4,7 @@ A Flat Table with Child Records
 The Problem
 -----------
 
-Our input data from :doc:`the Flat Table example <flat>` has been extended to add an *address* object per employee:
+Our input data from :doc:`the Flat Table example <flat>` has been extended to add an *address* record per employee:
 
 .. code-block:: json
 
@@ -32,12 +32,12 @@ Our input data from :doc:`the Flat Table example <flat>` has been extended to ad
         }
     ]
 
-To add a *Planet* column to our table, we'll describe a path that drills into this new child object.
+To add a *Planet* column to our table, we'll describe a path that drills into this new child record.
 
 Code Sample
 -----------
 
-This code is identical to :doc:`the Flat Table example <flat>` except for a new *Planet* column, which uses dots to describe a path into the *address* child object:
+This code is identical to :doc:`the Flat Table example <flat>` except for a new *Planet* column, which uses dots to describe a path into the *address* child record:
 
 .. testcode::
 

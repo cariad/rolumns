@@ -1,10 +1,8 @@
-from dateutil import parser
-
 from rolumns.columns import Columns
 from rolumns.groups import ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from rolumns.source import Source
-from rolumns.translators import to_datetime
+from rolumns.translation_state import TranslationState
 from tests.data import load_test_case
 
 # Fiddly cases:
@@ -95,23 +93,25 @@ def test_find_and_group() -> None:
     assert list(RowsRenderer(cs).render(inp)) == exp
 
 
-def test_dates() -> None:
+def test_translation() -> None:
     inp = [
-        {"date_of_birth": "19920307T131415Z", "name": "alice"},
-        {"date_of_birth": "19930207T161718Z", "name": "bob"},
-        {"date_of_birth": "19940107T192021Z", "name": "charlie"},
+        {"name": "alice"},
+        {"name": "bob"},
+        {"name": "charlie"},
     ]
 
+    def to_upper(state: TranslationState) -> str:
+        return str(state.value).upper()
+
     exp = [
-        ["Name", "Date of Birth"],
-        ["alice", parser.isoparse("1992-03-07T13:14:15Z")],
-        ["bob", parser.isoparse("1993-02-07T16:17:18Z")],
-        ["charlie", parser.isoparse("1994-01-07T19:20:21Z")],
+        ["Name"],
+        ["ALICE"],
+        ["BOB"],
+        ["CHARLIE"],
     ]
 
     cs = Columns()
-    cs.add("Name", "name")
-    cs.add("Date of Birth", Source("date_of_birth", translator=to_datetime))
+    cs.add("Name", Source("name", translator=to_upper))
 
     assert list(RowsRenderer(cs).render(inp)) == exp
 

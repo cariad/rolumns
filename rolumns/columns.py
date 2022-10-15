@@ -26,9 +26,9 @@ class Columns:
         columns.add("Email", "email")
     """
 
-    def __init__(self, group: Optional[Group] = None) -> None:
+    def __init__(self, group: Optional[Union[Group, str]] = None) -> None:
         self._columns: List[Column] = []
-        self._group = group or ByPath()
+        self._group = group if isinstance(group, Group) else ByPath(group)
         self._grouped_set: Optional[Columns] = None
 
     def add(

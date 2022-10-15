@@ -56,12 +56,12 @@ Our input data from :doc:`the Grouping by Lists example <grouping-lists>` has be
         }
     ]
 
-We want to emit *Year* and *Title* columns, so we'll add those to our *position* grouping.
+We want to emit *Year* and *Title* columns to hold these values, so we'll add those to our *positions* grouping.
 
 Code Sample
 -----------
 
-This code is identical to :doc:`the Grouping by Lists example <grouping-lists>` except for *Year* and *Title* columns added to the *positions* column set. Note that this time, each column's source path is relative to its column set's path.
+This code is identical to :doc:`the Grouping by Lists example <grouping-lists>` except for the *Year* and *Title* columns added to the *positions* column set. Note that each column's source path is relative to its column set's path.
 
 .. testcode::
 

@@ -2,7 +2,8 @@ from typing import Any, Iterable, Optional
 
 from rolumns.data_resolver import DataResolver
 from rolumns.exceptions import TranslationFailed
-from rolumns.translators import TranslationState, Translator
+from rolumns.translation_state import TranslationState
+from rolumns.types import Translator
 
 
 class Source:

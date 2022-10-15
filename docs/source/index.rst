@@ -1,13 +1,14 @@
+.. py:module:: rolumns
+    :noindex:
+
 Rolumns
 =======
 
 **Rolumns** is a Python package for squishing data into rows and columns.
 
-Rolumns supports:
+Rolumns supports :doc:`flat data <cook-book/flat>`, :doc:`grouped data <cook-book/grouping-lists>`, :doc:`user-defined fields <cook-book/udfs>`, rendering to rows of cells (suitable for packages like `openpyxl <https://openpyxl.readthedocs.io>`_ to generate Excel spreadsheets) and Markdown.
 
-* :doc:`Flat data <cook-book/flat>`
-* :doc:`Grouped data <cook-book/grouping-lists>`
-* :doc:`User-defined fields <cook-book/udfs>`
+See the :doc:`Cook Book <cook-book/index>` for examples.
 
 Installation
 ------------
