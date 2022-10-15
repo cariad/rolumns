@@ -13,3 +13,4 @@ These pages describe some common scenarios and solutions.
     grouping-groups
     translating
     udfs
+    choosing-columns
