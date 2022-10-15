@@ -7,7 +7,7 @@ A Flat Table
 The Problem
 -----------
 
-Say we want to transform this list of objects into a table with *Name* and *Email* columns:
+Say we want to transform this list of records into a table with *Name* and *Email* columns:
 
 .. code-block:: json
 
@@ -71,7 +71,7 @@ In the code below, we:
 Result
 ------
 
-Each object returned by the *rows* iterator represents a row in a table, and each row is a list of its columns.
+Each object yielded by the :code:`rows` iterator represents a row in a table, and each row is a list of its cells:
 
 .. testoutput::
    :options: +NORMALIZE_WHITESPACE

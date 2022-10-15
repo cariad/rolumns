@@ -1,7 +1,7 @@
 import rolumns
 import rolumns.groups
 import rolumns.renderers
-import rolumns.translators
+from rolumns.translation_state import TranslationState
 
 
 def test_simple() -> None:
@@ -262,7 +262,7 @@ def test_translate() -> None:
         },
     ]
 
-    def censor(state: rolumns.translators.TranslationState) -> str:
+    def censor(state: TranslationState) -> str:
         value = str("" if state.value is None else state.value)
 
         if len(value) < 3:

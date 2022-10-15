@@ -1,7 +1,7 @@
 Cook Book
 =========
 
-These pages describe some common scenarios and solutions.
+These articles describe common scenarios and solutions, starting with the simplest examples and working down to the more complex.
 
 .. toctree::
     :titlesonly:

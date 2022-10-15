@@ -2,14 +2,17 @@ from pytest import raises
 
 from rolumns.exceptions import TranslationFailed
 from rolumns.source import Source
-from rolumns.translators import to_datetime
+from rolumns.translation_state import TranslationState
 
 
 def test_fail() -> None:
-    source = Source("date", translator=to_datetime)
+    def fail(state: TranslationState) -> str:
+        raise Exception("failed")
+
+    source = Source("date", translator=fail)
 
     with raises(TranslationFailed) as ex:
         list(source.read({"date": "pringles"}))
 
-    expect = "Failed to translate 'pringles' (Unknown string format: pringles)"
+    expect = "Failed to translate 'pringles' (failed)"
     assert str(ex.value) == expect

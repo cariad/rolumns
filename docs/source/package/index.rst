@@ -8,5 +8,6 @@ These pages describe the package's modules and classes.
 
     columns
     source
+    groups
     exceptions
     renderers
