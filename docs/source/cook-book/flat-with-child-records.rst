@@ -37,7 +37,7 @@ To add a *Planet* column to our table, we'll describe a path that drills into th
 Code Sample
 -----------
 
-This code is identical to :doc:`the Flat Table example <flat>` except for a new *Planet* column, which uses dots to describe a path into the *address* child record:
+This code is similar to :doc:`the Flat Table example <flat>` except for a new *Planet* column, which uses dots to describe a path into the *address* child record:
 
 .. testcode::
 

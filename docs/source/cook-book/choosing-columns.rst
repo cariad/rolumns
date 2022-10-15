@@ -14,7 +14,7 @@ We can adjust the order of the columns during rendering by appending them direct
 Code Sample
 -----------
 
-This code is identical to :doc:`the Grouping by Objects example <grouping-objects>` except for the three calls to :func:`renderers.RowsRenderer.append` which explicitly describe which columns to render and in what order:
+This code is similar to :doc:`the Grouping by Objects example <grouping-objects>` except for the three calls to :func:`renderers.RowsRenderer.append` which explicitly describe which columns to render and in what order:
 
 .. testcode::
 

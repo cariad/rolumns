@@ -12,5 +12,6 @@ These articles describe common scenarios and solutions, starting with the simple
     grouping-objects
     grouping-groups
     translating
+    conditional-translating
     udfs
     choosing-columns

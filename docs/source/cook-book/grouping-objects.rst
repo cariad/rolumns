@@ -61,7 +61,7 @@ We want to emit *Year* and *Title* columns to hold these values, so we'll add th
 Code Sample
 -----------
 
-This code is identical to :doc:`the Grouping by Lists example <grouping-lists>` except for the *Year* and *Title* columns added to the *positions* column set. Note that each column's source path is relative to its column set's path.
+This code is similar to :doc:`the Grouping by Lists example <grouping-lists>` except for the *Year* and *Title* columns added to the *positions* column set. Note that each column's source path is relative to its column set's path.
 
 .. testcode::
 
