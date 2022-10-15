@@ -1,4 +1,5 @@
-from typing import Any, Iterable, List, Optional
+from io import StringIO
+from typing import Any, Dict, Iterable, List, Optional
 
 from rolumns.columns import Columns
 from rolumns.renderers.rows import RowsRenderer
@@ -77,3 +78,36 @@ class MarkdownRenderer:
             yield "| " + " | ".join([str(c) for c in row]) + " |"
             if index == 0:
                 yield "| " + " | ".join("-" * len(row)) + " |"
+
+    def render_string(self, data: Any) -> str:
+        """
+        Translates :code:`data` into a Markdown table.
+        """
+
+        rows = self._rows.render(data)
+        raw: List[List[str]] = []
+        maxes: Dict[int, int] = {}
+
+        for row in rows:
+            raw_row: List[str] = []
+            for index, cell in enumerate(row):
+                value = str(cell)
+                maxes[index] = max(maxes.get(index, 0), len(value))
+                raw_row.append(value)
+            raw.append(raw_row)
+
+        result = StringIO()
+
+        for index, raw_row in enumerate(raw):
+            for column_index, column_value in enumerate(raw_row):
+                result.write("| ")
+                result.write(column_value.ljust(maxes[column_index] + 1))
+            result.write("|\n")
+            if index == 0:
+                for column_index, column_value in enumerate(raw_row):
+                    result.write("| ")
+                    result.write("-" * maxes[column_index])
+                    result.write(" ")
+                result.write("|\n")
+
+        return result.getvalue()
