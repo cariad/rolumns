@@ -8,7 +8,7 @@ Rolumns
 
 Rolumns supports :doc:`flat data <cook-book/flat>`, :doc:`grouped data <cook-book/grouping-lists>`, :doc:`user-defined fields <cook-book/udfs>`, rendering to rows of cells (suitable for packages like `openpyxl <https://openpyxl.readthedocs.io>`_ to generate Excel spreadsheets) and Markdown.
 
-See the :doc:`Cook Book <cook-book/index>` for examples.
+See the :doc:`Cook Book <cook-book/index>` for examples. Additional examples are available at `github.com/cariad/rolumns-examples <https://github.com/cariad/rolumns-examples>`_.
 
 Installation
 ------------

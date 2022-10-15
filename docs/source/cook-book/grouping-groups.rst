@@ -86,7 +86,7 @@ We'll add an *Awards* column by adding a new grouping to the *positions* column 
 Code Sample
 -----------
 
-This code is identical to :doc:`the Grouping by Objects example <grouping-objects>` except for the *awards* column set added to the *positions* column set.
+This code is similar to :doc:`the Grouping by Objects example <grouping-objects>` except for the *awards* column set added to the *positions* column set.
 
 .. testcode::
 

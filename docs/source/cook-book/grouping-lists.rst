@@ -45,7 +45,7 @@ Each :class:`Columns` column set can reference multiple columns from a single fl
 Code Sample
 -----------
 
-This code is identical to :doc:`the Flat Table example <flat>` except for the *positions* column set created by calling :func:`Columns.group`. The path passed in describes the path to the iterable collection.
+This code is similar to :doc:`the Flat Table example <flat>` except for the *positions* column set created by calling :func:`Columns.group`. The path passed in describes the path to the iterable collection.
 
 Since the grouping set is just a :class:`Columns` column set, we can add columns to it exactly as before. Note, though, that the column doesn't have a source path because its column set iterates over primitive values rather than dictionaries.
 

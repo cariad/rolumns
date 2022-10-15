@@ -52,7 +52,11 @@ class Source:
 
         for datum in DataResolver(record).resolve(self._path):
             if self._translator:
-                state = TranslationState(value=datum)
+                state = TranslationState(
+                    path=self._path,
+                    record=record,
+                    value=datum,
+                )
 
                 try:
                     datum = self._translator(state)

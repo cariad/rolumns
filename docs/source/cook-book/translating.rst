@@ -34,7 +34,7 @@ We'll achieve this by passing a translator into the *Email* column.
 Code Sample
 -----------
 
-This code is identical to :doc:`the Flat Table example <flat>` except for the :class:`Source` being passed into the *Email* column. In the previous example, we passed in only the path; this is shorthand for a :class:`Source` with only a path. Now, we pass in both the path and translator as a :class:`Source` instance.
+This code is similar to :doc:`the Flat Table example <flat>` except for the :class:`Source` being passed into the *Email* column. In the previous example, we passed in only the path; this is shorthand for a :class:`Source` with only a path. Now, we pass in both the path and translator as a :class:`Source` instance.
 
 .. testcode::
 
