@@ -9,6 +9,7 @@ class UserDefinedField:
     """
     A user-defined field.
     """
+
     def __init__(self, name: str, source: Union[Source, str]) -> None:
         self.name = name
         self.source = source if isinstance(source, Source) else Source(source)
