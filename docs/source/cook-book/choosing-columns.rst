@@ -95,11 +95,11 @@ This code is identical to :doc:`the Grouping by Objects example <grouping-object
     columns.add("Name", "name")
     columns.add("Email", "email")
 
-    positions = columns.add_group("positions")
+    positions = columns.group("positions")
     positions.add("Year", "year")
     positions.add("Title", "title")
 
-    awards = positions.add_group("awards")
+    awards = positions.group("awards")
     awards.add("Award")
 
     renderer = RowsRenderer(columns)

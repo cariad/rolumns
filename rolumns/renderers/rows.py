@@ -5,10 +5,10 @@ from rolumns.columns import Columns
 
 class RowsRenderer:
     """
-    Renders the set of columns `columns` to an iterable list of rows.
+    Renders the set of columns :code:`columns` to an iterable list of rows.
 
-    All known columns will be rendered by default. To specify columns and their
-    order, pass `mask` and/or call `append`.
+    All columns will be rendered by default. To specify columns and their order,
+    pass :code:`mask` and/or call :func:`RowsRenderer.append`.
     """
 
     def __init__(
@@ -28,7 +28,7 @@ class RowsRenderer:
 
     def render(self, data: Any) -> Iterable[List[Any]]:
         """
-        Translates `data` into an iterable list of rows.
+        Translates :code:`data` into an iterable list of rows.
         """
 
         column_ids = self._mask or self._columns.names()

@@ -5,6 +5,7 @@
     "cimg",
     "codecov",
     "dateutil",
+    "genindex",
     "isoparse",
     "noindex",
     "openpyxl",
@@ -18,5 +19,6 @@
     "toctree",
     "venv",
     "viewcode"
-  ]
+  ],
+  "esbonio.sphinx.confDir": ""
 }

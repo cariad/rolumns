@@ -1,7 +1,7 @@
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
 from rolumns.column import Column
-from rolumns.exceptions import MultipleRepeaters
+from rolumns.exceptions import MultipleGroups
 from rolumns.groups import ByPath, Group
 from rolumns.source import Source
 
@@ -9,6 +9,21 @@ from rolumns.source import Source
 class Columns:
     """
     A set of columns.
+
+    .. testcode::
+
+        from rolumns import Columns
+
+        data = [
+            {
+                "name": "Robert Pringles",
+                "email": "bob@pringles.pop",
+            },
+        ]
+
+        columns = Columns()
+        columns.add("Name", "name")
+        columns.add("Email", "email")
     """
 
     def __init__(self, group: Optional[Group] = None) -> None:
@@ -16,29 +31,79 @@ class Columns:
         self._group = group or ByPath()
         self._grouped_set: Optional[Columns] = None
 
-    def add(self, name: str, source: Optional[Union[Source, str]] = None) -> None:
+    def add(
+        self,
+        name: str,
+        source: Optional[Union[Source, str]] = None,
+    ) -> None:
         """
         Adds a column.
 
-        `source` can be either an explicit `Source` or a path to the value, or
-        `None` if this column set's record is an iterable list of primitives.
+        `source` describes the data source for the column, which can be:
+
+        - an explicit :class:`Source`
+        - a string that describes the :code:`.`-separated path to the value
+        - `None` if this set's record is an iterable list of primitives
+
+        .. testcode::
+
+            from rolumns import Columns, Source
+
+            data = [
+                {
+                    "name": "Robert Pringles",
+                    "email": "bob@pringles.pop",
+                    "awards": [
+                        "Fastest Doughnut Run",
+                        "Tie of the Year",
+                    ],
+                },
+            ]
+
+            columns = Columns()
+            columns.add("Name", "name")
+            columns.add("Email", Source("email"))
+
+            awards = columns.group("awards")
+            # "awards" is also a column set
+            awards.add("Awards")
         """
 
         source = source if isinstance(source, Source) else Source(source)
         column = Column(name, source)
         self._columns.append(column)
 
-    def add_group(self, group: Union[Group, str]) -> "Columns":
+    def group(self, group: Union[Group, str]) -> "Columns":
         """
         Creates and adds a grouped column set.
 
-        A column set cannot have multiple repeaters as direct children, thought
-        it can have an unlimited number of repeaters as descendants. Will raise
-        `MultipleRepeaters` if you try to add a second repeater here.
+        A column set cannot have multiple groups (though each group can have its
+        own group). Will raise :class:`exceptions.MultipleGroups` if you try to
+        add a second group.
+
+        .. testcode::
+
+            from rolumns import Columns, Source
+
+            data = [
+                {
+                    "name": "Robert Pringles",
+                    "awards": [
+                        "Fastest Doughnut Run",
+                        "Tie of the Year",
+                    ],
+                },
+            ]
+
+            columns = Columns()
+            columns.add("Name", "name")
+
+            awards = columns.group("awards")
+            awards.add("Awards")
         """
 
         if self._grouped_set:
-            raise MultipleRepeaters()
+            raise MultipleGroups()
 
         group = group if isinstance(group, Group) else ByPath(group)
         self._grouped_set = Columns(group)

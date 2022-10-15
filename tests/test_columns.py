@@ -1,18 +1,17 @@
 from pytest import raises
 
 from rolumns.columns import Columns
-from rolumns.exceptions import MultipleRepeaters
+from rolumns.exceptions import MultipleGroups
 
 
 def test_create_repeater__multiple() -> None:
     cs = Columns()
-    cs.add_group("")
+    cs.group("")
 
-    with raises(MultipleRepeaters) as ex:
-        cs.add_group("")
+    with raises(MultipleGroups) as ex:
+        cs.group("")
 
-    expect = "A column set cannot have multiple repeaters as direct children"
-    assert str(ex.value) == expect
+    assert str(ex.value) == "A column set cannot have multiple groups"
 
 
 def test_normalize() -> None:
@@ -66,7 +65,7 @@ def test_normalize() -> None:
     cs = Columns()
     cs.add("Name", "name")
     cs.add("Email", "email")
-    positions = cs.add_group("positions")
+    positions = cs.group("positions")
     positions.add("Year", "start.year")
     positions.add("Title", "title")
 
