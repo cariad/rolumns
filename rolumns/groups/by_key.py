@@ -1,15 +1,14 @@
-from typing import Any, Dict, Iterable
-
-from typing_extensions import TypedDict
+from typing import Any, Dict, Iterable, Optional, Union
 
 from rolumns.groups.group import Group
+from rolumns.source import Source
 
 
 class ByValue(Group):
     def name(self) -> str:
         return "__by_value__"
 
-    def resolve(self, data: "KeyValuePair") -> Iterable[Any]:
+    def resolve(self, data: Dict[str, Any]) -> Iterable[Any]:
         """
         Resolves the value of :code:`data` to an iterable list of records.
         """
@@ -21,11 +20,6 @@ class ByValue(Group):
                 yield datum
         else:
             yield value
-
-
-class KeyValuePair(TypedDict):
-    key: str
-    value: Any
 
 
 class ByKey(Group):
@@ -95,24 +89,34 @@ class ByKey(Group):
          ['yesterday', 'Bought a book']]
     """
 
+    _KEY = "key"
+    _VALUE = "value"
+
+    def __init__(self, source: Optional[Union[Source, str]] = None) -> None:
+        self._source = source if isinstance(source, Source) else Source(source)
+
     @classmethod
     def key(cls) -> str:
         """
         Gets the path to the key name.
         """
 
-        return "key"
+        return cls._KEY
 
     def name(self) -> str:
         return "__by_key__"
 
-    def resolve(self, data: Dict[Any, Any]) -> Iterable[KeyValuePair]:
+    def resolve(self, data: Dict[Any, Any]) -> Iterable[Dict[str, Any]]:
         """
         Resolves :code:`data` to an iterable list of :class:`KeyValuePair`.
         """
 
-        for key, value in data.items():
-            yield KeyValuePair(key=key, value=value)
+        for d in self._source.read(data):
+            for key, value in d.items():
+                yield {
+                    self._KEY: key,
+                    self._VALUE: value,
+                }
 
     @classmethod
     def value(cls, path: str) -> str:
@@ -151,7 +155,7 @@ class ByKey(Group):
              ['yesterday', 'Bought a train set']]
         """
 
-        return f"value.{path}"
+        return f"{cls._VALUE}.{path}"
 
     @classmethod
     def values(cls) -> ByValue:
