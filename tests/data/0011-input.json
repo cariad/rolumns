@@ -1,0 +1,20 @@
+{
+  "diary": {
+    "today": [
+      {
+        "event": "Bought sausages"
+      },
+      {
+        "event": "Bought bread"
+      }
+    ],
+    "yesterday": [
+      {
+        "event": "Bought a train set"
+      },
+      {
+        "event": "Bought a book"
+      }
+    ]
+  }
+}

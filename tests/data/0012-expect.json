@@ -1,0 +1,11 @@
+[
+  ["When",      "Event",              "Types"],
+  ["today",     "Bought sausages",    "Bobby Sausages"],
+  ["today",     "Bought sausages",    "Danny Sausages"],
+  ["today",     "Bought bread",       "Big Bread"],
+  ["today",     "Bought bread",       "Lovely Bread"],
+  ["yesterday", "Bought a train set", "Great Western"],
+  ["yesterday", "Bought a train set", "West Coast"],
+  ["yesterday", "Bought a book",      "Great Expectations"],
+  ["yesterday", "Bought a book",      "Cyber City"]
+]

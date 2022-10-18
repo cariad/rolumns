@@ -1,11 +1,8 @@
-Groups
-=========
+ByUserDefinedFields
+===================
 
 .. py:module:: rolumns.groups
     :noindex:
-
-.. autoclass:: ByPath
-     :members:
 
 .. autoclass:: ByUserDefinedFields
      :members:
