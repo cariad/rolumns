@@ -66,6 +66,27 @@ class MarkdownRenderer:
 
         self._rows.append(column)
 
+    @staticmethod
+    def length(value: str) -> int:
+        """
+        Calculates the displayable width of a string.
+        """
+
+        return int(len(value.encode(encoding="utf_16_le")) / 2)
+
+    @staticmethod
+    def pad(value: str, length: int) -> str:
+        """
+        Pads a string to a displayable width.
+        """
+
+        p = length - MarkdownRenderer.length(value)
+
+        if p <= 0:
+            return value
+
+        return value + (" " * p)
+
     def render(self, data: Any) -> Iterable[str]:
         """
         Translates :code:`data` into an iterable list of strings that make up a
@@ -91,20 +112,21 @@ class MarkdownRenderer:
         for row in rows:
             raw_row: List[str] = []
             for index, cell in enumerate(row):
-                value = str(cell)
-                maxes[index] = max(maxes.get(index, 0), len(value))
+                value = "" if cell is None else str(cell)
+                maxes[index] = max(maxes.get(index, 0), self.length(value))
                 raw_row.append(value)
             raw.append(raw_row)
 
         result = StringIO()
 
         for index, raw_row in enumerate(raw):
-            for column_index, column_value in enumerate(raw_row):
+            for column_index, cell in enumerate(raw_row):
                 result.write("| ")
-                result.write(column_value.ljust(maxes[column_index] + 1))
+                cell = MarkdownRenderer.pad(cell, maxes[column_index] + 1)
+                result.write(cell)
             result.write("|\n")
             if index == 0:
-                for column_index, column_value in enumerate(raw_row):
+                for column_index, cell in enumerate(raw_row):
                     result.write("| ")
                     result.write("-" * maxes[column_index])
                     result.write(" ")
