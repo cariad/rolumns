@@ -1,0 +1,50 @@
+{
+  "today": [
+    {
+      "event": "Bought sausages",
+      "types": [
+        {
+          "name": "Bobby Sausages"
+        },
+        {
+          "name": "Danny Sausages"
+        }
+      ]
+    },
+    {
+      "event": "Bought bread",
+      "types": [
+        {
+          "name": "Big Bread"
+        },
+        {
+          "name": "Lovely Bread"
+        }
+      ]
+    }
+  ],
+  "yesterday": [
+    {
+      "event": "Bought a train set",
+      "types": [
+        {
+          "name": "Great Western"
+        },
+        {
+          "name": "West Coast"
+        }
+      ]
+    },
+    {
+      "event": "Bought a book",
+      "types": [
+        {
+          "name": "Great Expectations"
+        },
+        {
+          "name": "Cyber City"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 from rolumns.columns import Columns
-from rolumns.groups import ByKey, ByUserDefinedFields, UserDefinedField
+from rolumns.groups import ByKey, ByPath, ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from rolumns.source import Source
 from rolumns.translation_state import TranslationState
@@ -167,4 +167,28 @@ def test_dictionary_string_list() -> None:
     cs.add("When", ByKey.key())
     events = cs.group(ByKey.values())
     events.add("Event")
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_dictionary_object_list_via_child() -> None:
+    (inp, exp) = load_test_case(11)
+    cs = Columns(ByKey("diary"))
+    cs.add("When", ByKey.key())
+    events = cs.group(ByKey.values())
+    events.add("Event", "event")
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_dictionary_object_list_with_child_group() -> None:
+    (inp, exp) = load_test_case(12)
+
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+
+    events = cs.group(ByKey.values())
+    events.add("Event", "event")
+
+    types = events.group(ByPath("types"))
+    types.add("Types", "name")
+
     assert list(RowsRenderer(cs).render(inp)) == exp
