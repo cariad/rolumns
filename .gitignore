@@ -1,4 +1,6 @@
 __pycache__
 .coverage
+build
 coverage.xml
 docs/build
+rolumns.egg-info
