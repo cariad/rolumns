@@ -1,5 +1,5 @@
 from rolumns.columns import Columns
-from rolumns.groups import ByUserDefinedFields, UserDefinedField
+from rolumns.groups import ByKey, ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from rolumns.source import Source
 from rolumns.translation_state import TranslationState
@@ -141,4 +141,30 @@ def test_primitive_list() -> None:
 
     things = cs.group("favourite_things")
     things.add("Favourite Things")
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_dictionary() -> None:
+    (inp, exp) = load_test_case(8)
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+    cs.add("Event", ByKey.value("event"))
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_dictionary_object_list() -> None:
+    (inp, exp) = load_test_case(9)
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+    events = cs.group(ByKey.values())
+    events.add("Event", "event")
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_dictionary_string_list() -> None:
+    (inp, exp) = load_test_case(10)
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+    events = cs.group(ByKey.values())
+    events.add("Event")
     assert list(RowsRenderer(cs).render(inp)) == exp

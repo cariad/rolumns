@@ -2,6 +2,7 @@ from pytest import raises
 
 from rolumns.columns import Columns
 from rolumns.exceptions import MultipleGroups
+from rolumns.groups import ByKey
 
 
 def test_create_repeater__multiple() -> None:
@@ -99,6 +100,124 @@ def test_normalize() -> None:
                 {
                     "Year": 2011,
                     "Title": "CTO",
+                },
+            ],
+        },
+    ]
+
+    assert cs.normalize(data) == expect
+
+
+def test_normalize_dict_flat() -> None:
+    data = {
+        "today": {
+            "event": "Bought sausages",
+        },
+        "yesterday": {
+            "event": "Bought a train set",
+        },
+    }
+
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+    cs.add("Event", ByKey.value("event"))
+
+    expect = [
+        {
+            "When": "today",
+            "Event": "Bought sausages",
+        },
+        {
+            "When": "yesterday",
+            "Event": "Bought a train set",
+        },
+    ]
+
+    assert cs.normalize(data) == expect
+
+
+def test_normalize_dict_flat_as_group() -> None:
+    data = {
+        "today": {
+            "event": "Bought sausages",
+        },
+        "yesterday": {
+            "event": "Bought a train set",
+        },
+    }
+
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+    values = cs.group(ByKey.values())
+    values.add("Event", "event")
+
+    expect = [
+        {
+            "When": "today",
+            "__by_value__": [
+                {
+                    "Event": "Bought sausages",
+                },
+            ],
+        },
+        {
+            "When": "yesterday",
+            "__by_value__": [
+                {
+                    "Event": "Bought a train set",
+                },
+            ],
+        },
+    ]
+
+    assert cs.normalize(data) == expect
+
+
+def test_normalize_dict_list() -> None:
+    data = {
+        "today": [
+            {
+                "event": "Bought sausages",
+            },
+            {
+                "event": "Bought bread",
+            },
+        ],
+        "yesterday": [
+            {
+                "event": "Bought a train set",
+            },
+            {
+                "event": "Bought a book",
+            },
+        ],
+    }
+
+    cs = Columns(ByKey())
+    cs.add("When", ByKey.key())
+    values = cs.group(ByKey.values())
+    values.add("Event", "event")
+
+    expect = [
+        {
+            "When": "today",
+            "__by_value__": [
+                {
+                    "Event": "Bought sausages",
+                },
+                {
+                    "Event": "Bought bread",
+                },
+            ],
+        },
+        {
+            "When": "yesterday",
+            "__by_value__": [
+                {
+                    "Event": "Bought a train set",
+                },
+                {
+                    "Event": "Bought a book",
                 },
             ],
         },
@@ -277,3 +396,63 @@ def test_normalized_to_column_values__chained() -> None:
         ],
     }
     assert Columns.normalized_to_column_values(resolved) == expect
+
+
+def test_records__dict_flat() -> None:
+    data = {
+        "today": {
+            "event": "Bought sausages",
+        },
+        "yesterday": {
+            "event": "Bought a train set",
+        },
+    }
+
+    cs = Columns(ByKey())
+
+    expect = [
+        {
+            "key": "today",
+            "value": {"event": "Bought sausages"},
+        },
+        {
+            "key": "yesterday",
+            "value": {"event": "Bought a train set"},
+        },
+    ]
+
+    assert list(cs.records(data)) == expect
+
+
+def test_records__dict_list() -> None:
+    data = {
+        "today": [
+            {"event": "Bought sausages"},
+            {"event": "Bought bread"},
+        ],
+        "yesterday": [
+            {"event": "Bought a train set"},
+            {"event": "Bought a book"},
+        ],
+    }
+
+    cs = Columns(ByKey())
+
+    expect = [
+        {
+            "key": "today",
+            "value": [
+                {"event": "Bought sausages"},
+                {"event": "Bought bread"},
+            ],
+        },
+        {
+            "key": "yesterday",
+            "value": [
+                {"event": "Bought a train set"},
+                {"event": "Bought a book"},
+            ],
+        },
+    ]
+
+    assert list(cs.records(data)) == expect

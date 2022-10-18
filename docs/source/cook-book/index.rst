@@ -11,6 +11,8 @@ These articles describe common scenarios and solutions, starting with the simple
     grouping-lists
     grouping-objects
     grouping-groups
+    grouping-dictionaries
+    grouping-dictionary-lists
     translating
     conditional-translating
     udfs
