@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from pytest import mark
+from pytest import mark, raises
 
 from rolumns.data_resolver import DataResolver
 
@@ -8,6 +8,11 @@ from rolumns.data_resolver import DataResolver
 @mark.parametrize(
     "data, path, expect",
     [
+        (
+            {},
+            "name",
+            [],  # There is no "name" in {}.
+        ),
         (
             {
                 "name": "alice",
@@ -60,3 +65,10 @@ from rolumns.data_resolver import DataResolver
 )
 def test(data: Any, path: str, expect: List[Any]) -> None:
     assert list(DataResolver(data).resolve(path)) == expect
+
+
+def test_resolve__type_error() -> None:
+    with raises(TypeError) as ex:
+        list(DataResolver("pringles").resolve("bob"))
+
+    assert str(ex.value) == "string indices must be integers"

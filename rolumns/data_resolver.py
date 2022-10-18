@@ -33,6 +33,14 @@ class DataResolver:
             except KeyError:
                 logger.warning('No "%s" in %s', part, data)
                 return None
+            except TypeError as ex:
+                logger.warning(
+                    'Cannot use "%s" as index of %s (%s)',
+                    part,
+                    data,
+                    ex,
+                )
+                raise
 
             if not parts:
                 # This is the leaf, so there better be something to read!
