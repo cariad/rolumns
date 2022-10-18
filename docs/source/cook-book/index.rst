@@ -17,3 +17,4 @@ These articles describe common scenarios and solutions, starting with the simple
     conditional-translating
     udfs
     choosing-columns
+    markdown-alignment

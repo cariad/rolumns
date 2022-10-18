@@ -1,14 +1,17 @@
 [
   {
     "favourite_colour": "green",
+    "favourite_number": "10",
     "name": "alice"
   },
   {
     "favourite_colour": "magenta",
+    "favourite_number": "100",
     "name": "bob"
   },
   {
     "favourite_colour": "orange",
+    "favourite_number": "1000",
     "name": "charlie"
   }
 ]
