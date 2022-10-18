@@ -42,12 +42,14 @@ setup(
     name="rolumns",
     packages=[
         "rolumns",
+        "rolumns.enums",
         "rolumns.exceptions",
         "rolumns.groups",
         "rolumns.renderers",
     ],
     package_data={
         "rolumns": ["py.typed"],
+        "rolumns.enums": ["py.typed"],
         "rolumns.exceptions": ["py.typed"],
         "rolumns.groups": ["py.typed"],
         "rolumns.renderers": ["py.typed"],
