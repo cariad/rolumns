@@ -1,7 +1,6 @@
-from logging import getLogger
 from typing import Any, Iterable, List, Optional
 
-logger = getLogger("rolumns")
+from rolumns.logging import logger
 
 
 class DataResolver:
@@ -19,7 +18,7 @@ class DataResolver:
             self._root = [root]
 
     @staticmethod
-    def _resolve(parts: List[str], data: Any) -> Iterable[Any]:
+    def _resolve(parts: List[str], data: Any) -> Iterable[Optional[Any]]:
         if isinstance(data, list):
             for d in data:
                 for r in DataResolver._resolve(parts.copy(), d):
@@ -32,7 +31,8 @@ class DataResolver:
                 data = data[part]
             except KeyError:
                 logger.warning('No "%s" in %s', part, data)
-                return None
+                yield None
+                return
             except TypeError as ex:
                 logger.warning(
                     'Cannot use "%s" as index of %s (%s)',

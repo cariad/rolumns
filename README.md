@@ -1,6 +1,6 @@
 # Rolumns
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/cariad/rolumns/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/cariad/rolumns/tree/main) [![codecov](https://codecov.io/gh/cariad/rolumns/branch/main/graph/badge.svg?token=8kOONBPbV0)](https://codecov.io/gh/cariad/rolumns) ![PyPI - Downloads](https://img.shields.io/pypi/dm/rolumns)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/cariad/rolumns/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/cariad/rolumns/tree/main) [![codecov](https://codecov.io/gh/cariad/rolumns/branch/main/graph/badge.svg?token=8kOONBPbV0)](https://codecov.io/gh/cariad/rolumns)
 
 **Rolumns** is a Python package for squishing data into rows and columns.
 
