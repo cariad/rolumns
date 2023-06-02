@@ -11,7 +11,20 @@ from rolumns.data_resolver import DataResolver
         (
             {},
             "name",
-            [],  # There is no "name" in {}.
+            [
+                None,
+            ],  # There is no "name" in {}.
+        ),
+        (
+            [
+                {},
+                {},
+            ],
+            "name",
+            [
+                None,
+                None,
+            ],  # There is no "name" in {}.
         ),
         (
             {

@@ -1,0 +1,6 @@
+[
+  ["Name",    "Favourite Colour", "Address"],
+  ["alice",   "green",            null],
+  ["bob",     "magenta",          null],
+  ["charlie", "orange",           null]
+]

@@ -64,6 +64,19 @@ def test_sub() -> None:
     assert list(RowsRenderer(cs).render(inp)) == exp
 
 
+def test_sub__child_does_not_exist() -> None:
+    (inp, exp) = load_test_case(2, expect_variant="missing")
+
+    cs = Columns()
+    cs.add("Name", "name")
+    cs.add("Favourite Colour", "favourite_colour")
+
+    # address.solar_system doesn't exist in the source data.
+    cs.add("Address", "address.solar_system")
+
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
 def test_repeating_sub() -> None:
     (inp, exp) = load_test_case(3)
     cs = Columns()
