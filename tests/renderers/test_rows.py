@@ -205,3 +205,24 @@ def test_dictionary_object_list_with_child_group() -> None:
     types.add("Types", "name")
 
     assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_udf_from_repeating_group() -> None:
+    (inp, exp) = load_test_case(13)
+
+    cs = Columns(ByKey())
+    cs.add("Boss", ByKey.value("static.boss_name.value"))
+
+    fund_group = cs.group(ByKey.value("repeating.contact_details"))
+
+    udfs = fund_group.group(
+        ByUserDefinedFields(
+            UserDefinedField("Fax", "fax.value"),
+            UserDefinedField("VOIP", "voip.value"),
+        )
+    )
+
+    udfs.add("Device", "name")
+    udfs.add("Number", "value")
+
+    assert list(RowsRenderer(cs).render(inp)) == exp
