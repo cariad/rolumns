@@ -1,0 +1,72 @@
+{
+  "0": {
+    "static": {
+      "boss_name": {
+        "value": "The Cheese Boss"
+      }
+    },
+    "repeating": {
+      "contact_details": [
+        {
+          "fax": {
+            "value": "+44 000 000"
+          },
+          "voip": {
+            "value": "+45 000 000"
+          }
+        },
+        {
+          "fax": {
+            "value": "+44 000 001"
+          },
+          "voip": {
+            "value": "+45 000 001"
+          }
+        },
+        {
+          "fax": {
+            "value": "+44 000 002"
+          },
+          "voip": {
+            "value": "+45 000 002"
+          }
+        }
+      ]
+    }
+  },
+  "1": {
+    "static": {
+      "boss_name": {
+        "value": "The Bean Boss"
+      }
+    },
+    "repeating": {
+      "contact_details": [
+        {
+          "fax": {
+            "value": "+44 001 000"
+          },
+          "voip": {
+            "value": "+45 001 000"
+          }
+        },
+        {
+          "fax": {
+            "value": "+44 001 001"
+          },
+          "voip": {
+            "value": "+45 001 001"
+          }
+        },
+        {
+          "fax": {
+            "value": "+44 001 002"
+          },
+          "voip": {
+            "value": "+45 001 002"
+          }
+        }
+      ]
+    }
+  }
+}
