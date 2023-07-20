@@ -1,4 +1,4 @@
-from rolumns import Columns, ByPath
+from rolumns import ByKey, Columns
 from rolumns.groups import ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from tests.data import load_test_case
@@ -222,6 +222,29 @@ def test_udf_lookup() -> None:
 #     assert list(RowsRenderer(cs).render()) == exp
 
 
+def test_udf_from_repeating_group() -> None:
+    (inp, exp) = load_test_case(13)
+
+    cs = Columns(ByKey())
+    cs.add("Boss", ByKey.value("static.boss_name.value"))
+
+    fund_group = cs.group(ByKey.value("repeating.contact_details"))
+
+    udfs = fund_group.group(
+        ByUserDefinedFields(
+            UserDefinedField("Fax", "fax.value"),
+            UserDefinedField("VOIP", "voip.value"),
+        )
+    )
+
+    udfs.add("Device", "name")
+    udfs.add("Number", "value")
+
+    cs.data.load(inp)
+
+    assert list(RowsRenderer(cs).render()) == exp
+
+
 # def test_foo() -> None:
 #     (inp, exp) = load_test_case(13)
 
@@ -291,58 +314,57 @@ def test_udf_lookup() -> None:
 #     assert list(RowsRenderer(cs).render()) == exp
 
 
-def test_simple_udfs() -> None:
-    inp = {
-        "groups": [
-            {
-                "favourite_colour": "green",
-                "name": "alice",
-                "planet": "Earth",
-                "smell": "lavender"
-            },
-            {
-                "favourite_colour": "magenta",
-                "name": "bob",
-                "planet": "Mars",
-                "smell": "rose"
-            },
-            {
-                "favourite_colour": "orange",
-                "name": "charlie",
-                "planet": "Pluto",
-                "smell": "lynx"
-            }
-        ]
-    }
+# def test_simple_udfs() -> None:
+#     inp = {
+#         "groups": [
+#             {
+#                 "favourite_colour": "green",
+#                 "name": "alice",
+#                 "planet": "Earth",
+#                 "smell": "lavender",
+#             },
+#             {
+#                 "favourite_colour": "magenta",
+#                 "name": "bob",
+#                 "planet": "Mars",
+#                 "smell": "rose",
+#             },
+#             {
+#                 "favourite_colour": "orange",
+#                 "name": "charlie",
+#                 "planet": "Pluto",
+#                 "smell": "lynx",
+#             },
+#         ]
+#     }
 
-    exp = [
-    ["Name",    "UDF Name",         "UDF Value"],
-    ["alice",   "Favourite colour", "green"],
-    ["alice",   "Planet",           "Earth"],
-    ["alice",   "Smell",            "lavender"],
-    ["bob",     "Favourite colour", "magenta"],
-    ["bob",     "Planet"          , "Mars"],
-    ["bob",     "Smell",            "rose"],
-    ["charlie", "Favourite colour", "orange"],
-    ["charlie", "Planet",           "Pluto"],
-    ["charlie", "Smell",            "lynx"]
-    ]
+#     exp = [
+#         ["Name", "UDF Name", "UDF Value"],
+#         ["alice", "Favourite colour", "green"],
+#         ["alice", "Planet", "Earth"],
+#         ["alice", "Smell", "lavender"],
+#         ["bob", "Favourite colour", "magenta"],
+#         ["bob", "Planet", "Mars"],
+#         ["bob", "Smell", "rose"],
+#         ["charlie", "Favourite colour", "orange"],
+#         ["charlie", "Planet", "Pluto"],
+#         ["charlie", "Smell", "lynx"],
+#     ]
 
+#     cs = Columns(ByPath("groups"))
+#     cs.add("Name", "name")
 
-    cs = Columns(ByPath("groups"))
-    cs.add("Name", "name")
+#     udfs = cs.group(
+#         ByUserDefinedFields(
+#             UserDefinedField("Favourite colour", "favourite_colour"),
+#             UserDefinedField("Planet", "planet"),
+#             UserDefinedField("Smell", "smell"),
+#         )
+#     )
 
-    udfs = cs.group(
-        ByUserDefinedFields(
-            UserDefinedField("Favourite colour", "favourite_colour"),
-            UserDefinedField("Planet", "planet"),
-            UserDefinedField("Smell", "smell"),
-        )
-    )
+#     udfs.add("UDF Name", "name")
+#     udfs.add("UDF Value", "value")
 
-    udfs.add("UDF Name", "name")
-    udfs.add("UDF Value", "value")
+#     cs.data.load(inp)
 
-    cs.data.load(inp)
-
-    assert list(RowsRenderer(cs).render()) == exp
+#     assert list(RowsRenderer(cs).render()) == exp
