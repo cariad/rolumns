@@ -1,6 +1,6 @@
 from typing import Any, Iterable, List, Optional
 
-from rolumns.logging import logger
+from rolumns.logging import dump, logger
 
 
 class DataResolver:
@@ -16,6 +16,9 @@ class DataResolver:
             self._root: List[Any] = root
         else:
             self._root = [root]
+
+    def __str__(self) -> str:
+        return "%s(root=%s)" % (self.__class__.__name__, dump(self._root))
 
     @staticmethod
     def _resolve(parts: List[str], data: Any) -> Iterable[Optional[Any]]:

@@ -2,7 +2,7 @@ from typing import Optional
 
 from pytest import mark
 
-from rolumns.groups import ByPath
+from rolumns import ByPath
 
 
 @mark.parametrize(

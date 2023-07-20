@@ -1,8 +1,11 @@
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
+from rolumns.by_path import ByPath
 from rolumns.column import Column
+from rolumns.data_navigator import DataNavigator
 from rolumns.exceptions import MultipleGroups
-from rolumns.groups import ByPath, Group
+from rolumns.group import Group
+from rolumns.logging import dump, is_debug, logger
 from rolumns.source import Source
 
 
@@ -26,10 +29,25 @@ class Columns:
         columns.add("Email", "email")
     """
 
-    def __init__(self, group: Optional[Union[Group, str]] = None) -> None:
+    def __init__(
+        self,
+        group: Optional[Union[DataNavigator, Group]] = None,
+    ) -> None:
         self._columns: List[Column] = []
-        self._group = group if isinstance(group, Group) else ByPath(group)
+
+        if isinstance(group, Group):
+            self._data = DataNavigator(group)
+        else:
+            self._data = group or DataNavigator()
+
         self._grouped_set: Optional[Columns] = None
+
+    def __str__(self) -> str:
+        return "%s(%s)" % (self.__class__.__name__, self._data)
+
+    @property
+    def data(self) -> DataNavigator:
+        return self._data
 
     def add(
         self,
@@ -73,7 +91,10 @@ class Columns:
         column = Column(name, source)
         self._columns.append(column)
 
-    def group(self, group: Union[Group, str]) -> "Columns":
+    def group(
+        self,
+        group: Union[DataNavigator, Group, str],
+    ) -> "Columns":
         """
         Creates and adds a grouped column set.
 
@@ -105,7 +126,12 @@ class Columns:
         if self._grouped_set:
             raise MultipleGroups()
 
-        group = group if isinstance(group, Group) else ByPath(group)
+        if isinstance(group, str):
+            group = ByPath(group)
+
+        if isinstance(group, Group):
+            group = self._data.subgroup(group)
+
         self._grouped_set = Columns(group)
         return self._grouped_set
 
@@ -124,15 +150,20 @@ class Columns:
 
         return names
 
-    def normalize(self, data: Any) -> List[Dict[str, Any]]:
+    def normalize(self) -> List[Dict[str, Any]]:
         """
         Normalises `data` into a list of dictionaries describing column names
         and values.
         """
 
+        logger.debug("%s normalising", self)
+
         result: List[Dict[str, Any]] = []
 
-        for record in self.records(data):
+        for record in self.records():
+            if is_debug():
+                logger.debug("%s normalising record %s", self, dump(record))
+
             resolved: Dict[str, Any] = {}
 
             for column in self._columns:
@@ -143,10 +174,13 @@ class Columns:
                         raise Exception("Encountered multiple values")
 
             if self._grouped_set:
-                key = self._grouped_set._group.name()
-                resolved[key] = self._grouped_set.normalize(record)
+                key = self._grouped_set._data.group.name()
+                resolved[key] = self._grouped_set.normalize()
 
             result.append(resolved)
+
+        if is_debug():
+            logger.debug("%s normalised columns to %s", self, dump(result))
 
         return result
 
@@ -163,6 +197,7 @@ class Columns:
         filled_columns_height = 0
 
         for record in normalized:
+            # logger.info("record = %s", record)
             inner_columns: Dict[str, List[Any]] = {}
             inner_height = 1
 
@@ -181,6 +216,8 @@ class Columns:
 
                 for key, value in group_values.items():
                     if inner_height > 1 and inner_height != len(value):
+                        # logger.warning("inner_height = %i, value = %s (%i)"
+                        # , inner_height, value, len(value),)
                         raise Exception
                     inner_height = max(inner_height, len(value))
                     inner_columns[key] = value
@@ -195,26 +232,31 @@ class Columns:
                 filled_columns[key].extend(value)
 
             filled_columns_height += inner_height
+            # logger.info("inner_height = %i, filled_columns_height = %i", inner
+            # _height, filled_columns_height)
 
         return filled_columns
 
-    def records(self, data: Any) -> Iterable[Any]:
+    def records(self) -> Iterable[Any]:
         """
         Gets an iterable list of the records of `data` described by this column
         set's grouping.
         """
 
-        for record in self._group.resolve(data):
+        for record in self._data:
+            if is_debug():
+                logger.debug("%s discovered child record %s", self, dump(record))
+
             if isinstance(record, list):
                 for d in record:
                     yield d
             else:
                 yield record
 
-    def to_column_values(self, data: Any) -> Dict[str, List[Any]]:
+    def to_column_values(self) -> Dict[str, List[Any]]:
         """
         Translates `data` to a dictionary of column names and values.
         """
 
-        normalized = self.normalize(data)
+        normalized = self.normalize()
         return Columns.normalized_to_column_values(normalized)

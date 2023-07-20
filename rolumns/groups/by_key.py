@@ -1,6 +1,6 @@
 from typing import Any, Dict, Iterable, Optional, Union
 
-from rolumns.groups.group import Group
+from rolumns.group import Group
 from rolumns.source import Source
 
 
@@ -94,6 +94,9 @@ class ByKey(Group):
 
     def __init__(self, source: Optional[Union[Source, str]] = None) -> None:
         self._source = source if isinstance(source, Source) else Source(source)
+
+    def __str__(self) -> str:
+        return "%s(%s)" % (self.__class__.__name__, self._source)
 
     @classmethod
     def key(cls) -> str:

@@ -2,6 +2,7 @@ from typing import Any, Iterable, Optional
 
 from rolumns.data_resolver import DataResolver
 from rolumns.exceptions import TranslationFailed
+from rolumns.logging import dump, is_debug, logger
 from rolumns.translation_state import TranslationState
 from rolumns.types import Translator
 
@@ -45,10 +46,16 @@ class Source:
         self._path = path
         self._translator = translator
 
+    def __str__(self) -> str:
+        return "%s(%s)" % (self.__class__.__name__, self._path or "")
+
     def read(self, record: Any) -> Iterable[Any]:
         """
         Yields each prescribed value of :code:`record`.
         """
+
+        if is_debug():
+            logger.debug("%s reading %s", self, dump(record))
 
         for datum in DataResolver(record).resolve(self._path):
             if self._translator:
@@ -62,5 +69,8 @@ class Source:
                     datum = self._translator(state)
                 except Exception as ex:
                     raise TranslationFailed(datum, str(ex))
+
+            if is_debug():
+                logger.debug("%s yielding %s", self, dump(datum))
 
             yield datum
