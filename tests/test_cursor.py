@@ -37,5 +37,25 @@ def test_group() -> None:
     assert child.cursor_group == ByPath("value")
 
 
+def test_list() -> None:
+    cursor = Cursor("value")
+
+    cursor.load(
+        {
+            "value": [
+                "one",
+                "two",
+                "three",
+            ],
+        },
+    )
+
+    assert list(cursor) == [
+        "one",
+        "two",
+        "three",
+    ]
+
+
 def test_str() -> None:
     assert str(Cursor("value")) == 'Cursor(ByPath("value"))'
