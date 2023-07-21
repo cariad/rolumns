@@ -1,5 +1,4 @@
-from inspect import isgenerator
-from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from rolumns.column import Column
 from rolumns.cursor import Cursor
@@ -153,7 +152,7 @@ class Columns:
 
         result: List[Dict[str, Any]] = []
 
-        for record in self.records():
+        for record in self._cursor:
             resolved: Dict[str, Any] = {}
 
             for column in self._columns:
@@ -218,19 +217,6 @@ class Columns:
             filled_columns_height += inner_height
 
         return filled_columns
-
-    def records(self) -> Iterable[Any]:
-        """
-        Gets an iterable list of the records of `data` described by this column
-        set's grouping.
-        """
-
-        for record in self._cursor:
-            if isinstance(record, list) or isgenerator(record):
-                for d in record:
-                    yield d
-            else:
-                yield record
 
     def to_column_values(self) -> Dict[str, List[Any]]:
         """
