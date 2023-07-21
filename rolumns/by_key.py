@@ -28,8 +28,7 @@ class ByKey(Group):
 
     .. testcode::
 
-        from rolumns import Columns
-        from rolumns.groups import ByKey
+        from rolumns import ByKey, Columns
         from rolumns.renderers import RowsRenderer
 
         data = {
@@ -56,8 +55,7 @@ class ByKey(Group):
 
     .. testcode::
 
-        from rolumns import Columns
-        from rolumns.groups import ByKey
+        from rolumns import ByKey, Columns
         from rolumns.renderers import RowsRenderer
 
         data = {
@@ -128,8 +126,7 @@ class ByKey(Group):
 
         .. testcode::
 
-            from rolumns import Columns
-            from rolumns.groups import ByKey
+            from rolumns import ByKey, Columns
             from rolumns.renderers import RowsRenderer
 
             data = {
@@ -167,8 +164,7 @@ class ByKey(Group):
 
         .. testcode::
 
-            from rolumns import Columns
-            from rolumns.groups import ByKey
+            from rolumns import ByKey, Columns
             from rolumns.renderers import RowsRenderer
 
             data = {

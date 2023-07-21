@@ -10,6 +10,7 @@ from rolumns.by_key import ByKey
 from rolumns.by_path import ByPath
 from rolumns.by_user_defined_fields import ByUserDefinedFields, UserDefinedField
 from rolumns.columns import Columns
+from rolumns.group import Group
 from rolumns.source import Source
 from rolumns.translation_state import TranslationState
 
@@ -21,6 +22,7 @@ __all__ = [
     "ByPath",
     "ByUserDefinedFields",
     "Columns",
+    "Group",
     "Source",
     "TranslationState",
     "UserDefinedField",

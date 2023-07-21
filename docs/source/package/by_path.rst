@@ -1,7 +1,7 @@
 ByPath
 ======
 
-.. py:module:: rolumns.groups
+.. py:module:: rolumns
     :noindex:
 
 .. autoclass:: ByPath
