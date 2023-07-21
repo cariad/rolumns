@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
 from rolumns.by_path import ByPath
 from rolumns.column import Column
-from rolumns.data_reader import DataReader
+from rolumns.cursor import Cursor
 from rolumns.exceptions import MultipleGroups
 from rolumns.group import Group
 from rolumns.source import Source
@@ -31,7 +31,7 @@ class Columns:
 
     def __init__(
         self,
-        group: Optional[Union[DataReader, Group, str]] = None,
+        group: Optional[Union[Cursor, Group, str]] = None,
     ) -> None:
         self._columns: List[Column] = []
 
@@ -39,9 +39,9 @@ class Columns:
             group = ByPath(group)
 
         if isinstance(group, Group):
-            self._group = DataReader(group)
+            self._group = Cursor(group)
         else:
-            self._group = group or DataReader(ByPath())
+            self._group = group or Cursor(ByPath())
 
         self._grouped_set: Optional[Columns] = None
 
@@ -88,12 +88,12 @@ class Columns:
         self._columns.append(column)
 
     @property
-    def data(self) -> DataReader:
+    def data(self) -> Cursor:
         return self._group
 
     def group(
         self,
-        group: Union[DataReader, Group, str],
+        group: Union[Cursor, Group, str],
     ) -> "Columns":
         """
         Creates and adds a grouped column set.
@@ -130,7 +130,7 @@ class Columns:
             group = ByPath(group)
 
         if isinstance(group, Group):
-            group = self._group.subgroup(group)
+            group = self._group.group(group)
 
         self._grouped_set = Columns(group)
         return self._grouped_set
@@ -169,7 +169,7 @@ class Columns:
                         raise Exception("Encountered multiple values")
 
             if self._grouped_set:
-                key = self._grouped_set._group.group.name()
+                key = self._grouped_set._group.cursor_group.name()
                 resolved[key] = self._grouped_set.normalize()
 
             result.append(resolved)

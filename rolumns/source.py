@@ -1,6 +1,6 @@
 from typing import Any, Iterable, Optional
 
-from rolumns.data_reader import DataReader
+from rolumns.cursor import Cursor
 from rolumns.data_resolver import DataResolver
 from rolumns.exceptions import TranslationFailed
 from rolumns.translation_state import TranslationState
@@ -41,7 +41,7 @@ class Source:
     def __init__(
         self,
         path: Optional[str],
-        data: Optional[DataReader] = None,
+        data: Optional[Cursor] = None,
         translator: Optional[Translator] = None,
     ) -> None:
         self._data = data

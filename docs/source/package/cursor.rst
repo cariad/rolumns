@@ -1,5 +1,5 @@
 Cursor
-=====
+======
 
 .. py:module:: rolumns
     :noindex:
