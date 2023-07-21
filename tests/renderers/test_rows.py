@@ -124,7 +124,7 @@ def test_translation() -> None:
     ]
 
     cs = Columns()
-    cs.add("Name", Source("name", translator=to_upper))
+    cs.add("Name", Source(path="name", translator=to_upper))
 
     assert list(RowsRenderer(cs).render(inp)) == exp
 
@@ -243,7 +243,7 @@ def test_udf_repeat_static() -> None:
             UserDefinedField(
                 "Emergency",
                 Source(
-                    ByKey.value("static.emergency_phone.value"),
+                    path=ByKey.value("static.emergency_phone.value"),
                     cursor=cs.cursor,
                 ),
             ),
@@ -253,4 +253,13 @@ def test_udf_repeat_static() -> None:
     udfs.add("Device", "name")
     udfs.add("Number", "value")
 
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_constant() -> None:
+    (inp, exp) = load_test_case(1, expect_variant="constant")
+    cs = Columns()
+    cs.add("Name", "name")
+    cs.add("Favourite Colour", "favourite_colour")
+    cs.add("Delightful?", Source(constant="Yes"))
     assert list(RowsRenderer(cs).render(inp)) == exp

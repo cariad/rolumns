@@ -262,7 +262,7 @@ def test_translate() -> None:
 
     columns = rolumns.Columns()
     columns.add("Name", "name")
-    columns.add("Email", rolumns.Source("email", translator=censor))
+    columns.add("Email", rolumns.Source(path="email", translator=censor))
 
     renderer = rolumns.renderers.MarkdownRenderer(columns)
 

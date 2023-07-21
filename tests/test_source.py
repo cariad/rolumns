@@ -9,7 +9,7 @@ def test_fail() -> None:
     def fail(state: TranslationState) -> str:
         raise Exception("failed")
 
-    source = Source("date", translator=fail)
+    source = Source(path="date", translator=fail)
 
     with raises(TranslationFailed) as ex:
         list(source.read({"date": "pringles"}))

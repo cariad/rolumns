@@ -83,7 +83,7 @@ This code is similar to :doc:`the Translating example <translating>` but note th
 
     columns = Columns()
     columns.add("Name", "name")
-    columns.add("Address", Source("address.planet", translator=censor))
+    columns.add("Address", Source(path="address.planet", translator=censor))
 
     renderer = RowsRenderer(columns)
     rows = renderer.render(data)

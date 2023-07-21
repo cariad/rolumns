@@ -65,7 +65,7 @@ This code is similar to :doc:`the Flat Table example <flat>` except for the :cla
 
     columns = Columns()
     columns.add("Name", "name")
-    columns.add("Email", Source("email", translator=censor))
+    columns.add("Email", Source(path="email", translator=censor))
 
     renderer = RowsRenderer(columns)
     rows = renderer.render(data)

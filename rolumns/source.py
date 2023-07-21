@@ -36,14 +36,20 @@ class Source:
         ]
 
     - The path :code:`None` iterates over the values
+
+    :code:`constant` describes any static constant to bind to.
+
+    :code:`cursor` describes any cursor to bind to.
     """
 
     def __init__(
         self,
-        path: Optional[str],
+        constant: Optional[Any] = None,
         cursor: Optional[Cursor] = None,
+        path: Optional[str] = None,
         translator: Optional[Translator] = None,
     ) -> None:
+        self._constant = constant
         self._cursor = cursor
         self._path = path
         self._translator = translator
@@ -52,6 +58,10 @@ class Source:
         """
         Yields each prescribed value of :code:`record`.
         """
+
+        if self._constant is not None:
+            yield self._constant
+            return
 
         if self._cursor is not None:
             record = self._cursor.current

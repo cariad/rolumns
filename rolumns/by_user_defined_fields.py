@@ -12,7 +12,7 @@ class UserDefinedField:
 
     def __init__(self, name: str, source: Union[Source, str]) -> None:
         self.name = name
-        self.source = source if isinstance(source, Source) else Source(source)
+        self.source = source if isinstance(source, Source) else Source(path=source)
 
 
 class ByUserDefinedFields(Group):

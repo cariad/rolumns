@@ -91,7 +91,7 @@ class ByKey(Group):
     _VALUE = "value"
 
     def __init__(self, source: Optional[Union[Source, str]] = None) -> None:
-        self._source = source if isinstance(source, Source) else Source(source)
+        self._source = source if isinstance(source, Source) else Source(path=source)
 
     @classmethod
     def key(cls) -> str:

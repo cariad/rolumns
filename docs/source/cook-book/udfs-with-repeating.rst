@@ -80,7 +80,7 @@ This code is similar to :doc:`User-Defined Fields <udfs>`, but note that the new
     by_udf = ByUserDefinedFields()
     by_udf.append("Email", "email")
     by_udf.append("Title", "title")
-    by_udf.append("Company", Source("company.name", cursor=columns.cursor))
+    by_udf.append("Company", Source(path="company.name", cursor=columns.cursor))
 
     udfs = staff.group(by_udf)
     udfs.add("Property", ByUserDefinedFields.NAME)

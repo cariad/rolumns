@@ -64,7 +64,7 @@ def test_render_string__emoji() -> None:
     cs = Columns()
     cs.add("Name", "name")
     cs.add("Favourite Colour", "favourite_colour")
-    cs.add("?", Source("favourite_colour", translator=fire))
+    cs.add("?", Source(path="favourite_colour", translator=fire))
     t = MarkdownRenderer(cs)
 
     assert t.render_string(inp) == "\n".join(exp) + "\n"
