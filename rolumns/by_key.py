@@ -1,6 +1,6 @@
 from typing import Any, Dict, Iterable, Optional, Union
 
-from rolumns.groups.group import Group
+from rolumns.group import Group
 from rolumns.source import Source
 
 

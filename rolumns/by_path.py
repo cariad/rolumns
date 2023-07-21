@@ -1,7 +1,7 @@
 from typing import Any, Iterable, Optional
 
 from rolumns.data_resolver import DataResolver
-from rolumns.groups.group import Group
+from rolumns.group import Group
 
 
 class ByPath(Group):

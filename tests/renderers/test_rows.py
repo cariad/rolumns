@@ -1,5 +1,5 @@
+from rolumns import ByKey, ByPath, ByUserDefinedFields, UserDefinedField
 from rolumns.columns import Columns
-from rolumns.groups import ByKey, ByPath, ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from rolumns.source import Source
 from rolumns.translation_state import TranslationState
@@ -219,6 +219,34 @@ def test_udf_from_repeating_group() -> None:
         ByUserDefinedFields(
             UserDefinedField("Fax", "fax.value"),
             UserDefinedField("VOIP", "voip.value"),
+        )
+    )
+
+    udfs.add("Device", "name")
+    udfs.add("Number", "value")
+
+    assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_udf_repeat_static() -> None:
+    (inp, exp) = load_test_case(13, expect_variant="repeat-static")
+
+    cs = Columns(ByKey())
+    cs.add("Boss", ByKey.value("static.boss_name.value"))
+
+    fund_group = cs.group(ByKey.value("repeating.contact_details"))
+
+    udfs = fund_group.group(
+        ByUserDefinedFields(
+            UserDefinedField("Fax", "fax.value"),
+            UserDefinedField("VOIP", "voip.value"),
+            UserDefinedField(
+                "Emergency",
+                Source(
+                    ByKey.value("static.emergency_phone.value"),
+                    data=cs.data,
+                ),
+            ),
         )
     )
 

@@ -1,8 +1,8 @@
 from pytest import raises
 
+from rolumns import ByKey
 from rolumns.columns import Columns
 from rolumns.exceptions import MultipleGroups
-from rolumns.groups import ByKey
 
 
 def test_create_repeater__multiple() -> None:
@@ -105,7 +105,9 @@ def test_normalize() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.data.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalize_dict_flat() -> None:
@@ -133,7 +135,9 @@ def test_normalize_dict_flat() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.data.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalize_dict_flat_as_group() -> None:
@@ -170,7 +174,9 @@ def test_normalize_dict_flat_as_group() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.data.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalize_dict_list() -> None:
@@ -223,7 +229,9 @@ def test_normalize_dict_list() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.data.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalized_to_column_values() -> None:
@@ -421,7 +429,9 @@ def test_records__dict_flat() -> None:
         },
     ]
 
-    assert list(cs.records(data)) == expect
+    cs.data.load(data)
+
+    assert list(cs.records()) == expect
 
 
 def test_records__dict_list() -> None:
@@ -455,4 +465,6 @@ def test_records__dict_list() -> None:
         },
     ]
 
-    assert list(cs.records(data)) == expect
+    cs.data.load(data)
+
+    assert list(cs.records()) == expect

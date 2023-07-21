@@ -1,4 +1,4 @@
-from rolumns.groups import ByKey
+from rolumns import ByKey
 
 
 def test_name() -> None:

@@ -1,8 +1,11 @@
+from inspect import isgenerator
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
+from rolumns.by_path import ByPath
 from rolumns.column import Column
+from rolumns.data_reader import DataReader
 from rolumns.exceptions import MultipleGroups
-from rolumns.groups import ByPath, Group
+from rolumns.group import Group
 from rolumns.source import Source
 
 
@@ -26,9 +29,20 @@ class Columns:
         columns.add("Email", "email")
     """
 
-    def __init__(self, group: Optional[Union[Group, str]] = None) -> None:
+    def __init__(
+        self,
+        group: Optional[Union[DataReader, Group, str]] = None,
+    ) -> None:
         self._columns: List[Column] = []
-        self._group = group if isinstance(group, Group) else ByPath(group)
+
+        if group is None or isinstance(group, str):
+            group = ByPath(group)
+
+        if isinstance(group, Group):
+            self._group = DataReader(group)
+        else:
+            self._group = group or DataReader(ByPath())
+
         self._grouped_set: Optional[Columns] = None
 
     def add(
@@ -73,7 +87,14 @@ class Columns:
         column = Column(name, source)
         self._columns.append(column)
 
-    def group(self, group: Union[Group, str]) -> "Columns":
+    @property
+    def data(self) -> DataReader:
+        return self._group
+
+    def group(
+        self,
+        group: Union[DataReader, Group, str],
+    ) -> "Columns":
         """
         Creates and adds a grouped column set.
 
@@ -105,7 +126,12 @@ class Columns:
         if self._grouped_set:
             raise MultipleGroups()
 
-        group = group if isinstance(group, Group) else ByPath(group)
+        if isinstance(group, str):
+            group = ByPath(group)
+
+        if isinstance(group, Group):
+            group = self._group.subgroup(group)
+
         self._grouped_set = Columns(group)
         return self._grouped_set
 
@@ -124,7 +150,7 @@ class Columns:
 
         return names
 
-    def normalize(self, data: Any) -> List[Dict[str, Any]]:
+    def normalize(self) -> List[Dict[str, Any]]:
         """
         Normalises `data` into a list of dictionaries describing column names
         and values.
@@ -132,7 +158,7 @@ class Columns:
 
         result: List[Dict[str, Any]] = []
 
-        for record in self.records(data):
+        for record in self.records():
             resolved: Dict[str, Any] = {}
 
             for column in self._columns:
@@ -143,8 +169,8 @@ class Columns:
                         raise Exception("Encountered multiple values")
 
             if self._grouped_set:
-                key = self._grouped_set._group.name()
-                resolved[key] = self._grouped_set.normalize(record)
+                key = self._grouped_set._group.group.name()
+                resolved[key] = self._grouped_set.normalize()
 
             result.append(resolved)
 
@@ -198,23 +224,23 @@ class Columns:
 
         return filled_columns
 
-    def records(self, data: Any) -> Iterable[Any]:
+    def records(self) -> Iterable[Any]:
         """
         Gets an iterable list of the records of `data` described by this column
         set's grouping.
         """
 
-        for record in self._group.resolve(data):
-            if isinstance(record, list):
+        for record in self._group:
+            if isinstance(record, list) or isgenerator(record):
                 for d in record:
                     yield d
             else:
                 yield record
 
-    def to_column_values(self, data: Any) -> Dict[str, List[Any]]:
+    def to_column_values(self) -> Dict[str, List[Any]]:
         """
         Translates `data` to a dictionary of column names and values.
         """
 
-        normalized = self.normalize(data)
+        normalized = self.normalize()
         return Columns.normalized_to_column_values(normalized)
