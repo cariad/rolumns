@@ -30,17 +30,16 @@ In :doc:`the Grouping Dictionaries example <grouping-dictionaries>` the dictiona
         ]
     }
 
-To create another table with *When* and *Event* columns, we'll use the same :class:`groups.ByKey` as before but we'll also extend the column set with an additional group for values.
+To create another table with *When* and *Event* columns, we'll use the same :class:`ByKey` as before but we'll also extend the column set with an additional group for values.
 
 Code Sample
 -----------
 
-Note that the column set is grouped via :class:`groups.ByKey` and the path to the key name is read from :func:`groups.ByKey.key()` as before, but now a child grouping is added via the :func:`groups.ByKey.values()` function.
+Note that the column set is grouped via :class:`ByKey` and the path to the key name is read from :func:`ByKey.key()` as before, but now a child grouping is added via the :func:`ByKey.values()` function.
 
 .. testcode::
 
-    from rolumns import Columns
-    from rolumns.groups import ByKey
+    from rolumns import ByKey, Columns
     from rolumns.renderers import RowsRenderer
 
     data = {

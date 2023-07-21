@@ -1,8 +1,9 @@
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
+from rolumns.by_path import ByPath
 from rolumns.column import Column
 from rolumns.exceptions import MultipleGroups
-from rolumns.groups import ByPath, Group
+from rolumns.group import Group
 from rolumns.source import Source
 
 

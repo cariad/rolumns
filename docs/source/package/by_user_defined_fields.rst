@@ -1,7 +1,7 @@
 ByUserDefinedFields
 ===================
 
-.. py:module:: rolumns.groups
+.. py:module:: rolumns
     :noindex:
 
 .. autoclass:: ByUserDefinedFields

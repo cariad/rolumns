@@ -92,21 +92,20 @@ User-defined fields allow you to pivot a table. For example, given this data:
      - Title
      - CTO
 
-We'll achieve this by using a :class:`groups.ByUserDefinedFields` group type.
+We'll achieve this by using a :class:`ByUserDefinedFields` group type.
 
 Code Sample
 -----------
 
 This code is similar to :doc:`the Flat Table example <flat>`, but note:
 
-1. A :class:`groups.ByUserDefinedFields` instance is created and the user-defined fields are appended. Just like with columns, the first argument is the name and the second is the path to the data.
-2. The :class:`groups.ByUserDefinedFields` instance is set as the column set's group.
-3. Two *Property* and *Value* columns are added to include the field names and values in the render. The names can be anything you want, but the paths must be the :py:attr:`groups.ByUserDefinedFields.NAME` and :py:attr:`groups.ByUserDefinedFields.VALUE` tokens.
+1. A :class:`ByUserDefinedFields` instance is created and the user-defined fields are appended. Just like with columns, the first argument is the name and the second is the path to the data.
+2. The :class:`ByUserDefinedFields` instance is set as the column set's group.
+3. Two *Property* and *Value* columns are added to include the field names and values in the render. The names can be anything you want, but the paths must be the :py:attr:`ByUserDefinedFields.NAME` and :py:attr:`ByUserDefinedFields.VALUE` tokens.
 
 .. testcode::
 
-    from rolumns import Columns, Source
-    from rolumns.groups import ByUserDefinedFields
+    from rolumns import ByUserDefinedFields, Columns, Source
     from rolumns.renderers import RowsRenderer
 
     data = [

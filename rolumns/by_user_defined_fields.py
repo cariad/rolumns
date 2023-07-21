@@ -1,7 +1,7 @@
 from typing import Any, Iterable, List, Union
 
 from rolumns.exceptions import UserDefinedFieldResolvedToMultipleValues
-from rolumns.groups.group import Group
+from rolumns.group import Group
 from rolumns.source import Source
 
 
