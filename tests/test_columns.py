@@ -1,8 +1,8 @@
 from pytest import raises
 
+from rolumns import ByKey
 from rolumns.columns import Columns
 from rolumns.exceptions import MultipleGroups
-from rolumns.groups import ByKey
 
 
 def test_create_repeater__multiple() -> None:

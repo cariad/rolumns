@@ -25,12 +25,11 @@ To create a table with *When* and *Event* columns, we'll use a specific dictiona
 Code Sample
 -----------
 
-Note that the column set is grouped via :class:`groups.ByKey`. The path to the key name is read from :func:`groups.ByKey.key()` and a path that drills into the key's value is built with the :func:`groups.ByKey.value()` function.
+Note that the column set is grouped via :class:`ByKey`. The path to the key name is read from :func:`ByKey.key()` and a path that drills into the key's value is built with the :func:`ByKey.value()` function.
 
 .. testcode::
 
-    from rolumns import Columns
-    from rolumns.groups import ByKey
+    from rolumns import ByKey, Columns
     from rolumns.renderers import RowsRenderer
 
     data = {

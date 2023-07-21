@@ -1,5 +1,5 @@
+from rolumns import ByKey, ByPath, ByUserDefinedFields, UserDefinedField
 from rolumns.columns import Columns
-from rolumns.groups import ByKey, ByPath, ByUserDefinedFields, UserDefinedField
 from rolumns.renderers.rows import RowsRenderer
 from rolumns.source import Source
 from rolumns.translation_state import TranslationState

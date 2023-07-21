@@ -1,7 +1,7 @@
 from pytest import raises
 
+from rolumns import ByUserDefinedFields, UserDefinedField
 from rolumns.exceptions import UserDefinedFieldResolvedToMultipleValues
-from rolumns.groups import ByUserDefinedFields, UserDefinedField
 
 
 def test() -> None:

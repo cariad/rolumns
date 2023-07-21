@@ -1,5 +1,4 @@
 import rolumns
-import rolumns.groups
 import rolumns.renderers
 from rolumns.translation_state import TranslationState
 
@@ -312,14 +311,14 @@ def test_udf() -> None:
     columns = rolumns.Columns()
     columns.add("Name", "name")
 
-    group = rolumns.groups.ByUserDefinedFields()
+    group = rolumns.ByUserDefinedFields()
     group.append("Address", "address")
     group.append("Email", "email")
     group.append("Title", "title")
 
     udfs = columns.group(group)
-    udfs.add("Property", rolumns.groups.ByUserDefinedFields.NAME)
-    udfs.add("Value", rolumns.groups.ByUserDefinedFields.VALUE)
+    udfs.add("Property", rolumns.ByUserDefinedFields.NAME)
+    udfs.add("Value", rolumns.ByUserDefinedFields.VALUE)
 
     expect = [
         "| Name | Property | Value |",
