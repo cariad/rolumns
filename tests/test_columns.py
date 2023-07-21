@@ -105,7 +105,7 @@ def test_normalize() -> None:
         },
     ]
 
-    cs.data.load(data)
+    cs.cursor.load(data)
 
     assert cs.normalize() == expect
 
@@ -135,7 +135,7 @@ def test_normalize_dict_flat() -> None:
         },
     ]
 
-    cs.data.load(data)
+    cs.cursor.load(data)
 
     assert cs.normalize() == expect
 
@@ -174,7 +174,7 @@ def test_normalize_dict_flat_as_group() -> None:
         },
     ]
 
-    cs.data.load(data)
+    cs.cursor.load(data)
 
     assert cs.normalize() == expect
 
@@ -229,7 +229,7 @@ def test_normalize_dict_list() -> None:
         },
     ]
 
-    cs.data.load(data)
+    cs.cursor.load(data)
 
     assert cs.normalize() == expect
 
@@ -429,7 +429,7 @@ def test_records__dict_flat() -> None:
         },
     ]
 
-    cs.data.load(data)
+    cs.cursor.load(data)
 
     assert list(cs.records()) == expect
 
@@ -465,6 +465,6 @@ def test_records__dict_list() -> None:
         },
     ]
 
-    cs.data.load(data)
+    cs.cursor.load(data)
 
     assert list(cs.records()) == expect

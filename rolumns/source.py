@@ -41,10 +41,10 @@ class Source:
     def __init__(
         self,
         path: Optional[str],
-        data: Optional[Cursor] = None,
+        cursor: Optional[Cursor] = None,
         translator: Optional[Translator] = None,
     ) -> None:
-        self._data = data
+        self._cursor = cursor
         self._path = path
         self._translator = translator
 
@@ -53,8 +53,8 @@ class Source:
         Yields each prescribed value of :code:`record`.
         """
 
-        if self._data is not None:
-            record = self._data.current
+        if self._cursor is not None:
+            record = self._cursor.current
 
         for datum in DataResolver(record).resolve(self._path):
             if self._translator:

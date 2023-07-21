@@ -1,7 +1,6 @@
 from inspect import isgenerator
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
-from rolumns.by_path import ByPath
 from rolumns.column import Column
 from rolumns.cursor import Cursor
 from rolumns.exceptions import MultipleGroups
@@ -31,18 +30,13 @@ class Columns:
 
     def __init__(
         self,
-        group: Optional[Union[Cursor, Group, str]] = None,
+        cursor: Optional[Union[Cursor, Group, str]] = None,
     ) -> None:
+        if isinstance(cursor, (Group, str)) or cursor is None:
+            cursor = Cursor(cursor)
+
         self._columns: List[Column] = []
-
-        if group is None or isinstance(group, str):
-            group = ByPath(group)
-
-        if isinstance(group, Group):
-            self._group = Cursor(group)
-        else:
-            self._group = group or Cursor(ByPath())
-
+        self._cursor = cursor
         self._grouped_set: Optional[Columns] = None
 
     def add(
@@ -88,12 +82,16 @@ class Columns:
         self._columns.append(column)
 
     @property
-    def data(self) -> Cursor:
-        return self._group
+    def cursor(self) -> Cursor:
+        """
+        Cursor.
+        """
+
+        return self._cursor
 
     def group(
         self,
-        group: Union[Cursor, Group, str],
+        cursor: Union[Cursor, Group, str],
     ) -> "Columns":
         """
         Creates and adds a grouped column set.
@@ -126,13 +124,10 @@ class Columns:
         if self._grouped_set:
             raise MultipleGroups()
 
-        if isinstance(group, str):
-            group = ByPath(group)
+        if isinstance(cursor, (Group, str)):
+            cursor = self._cursor.group(cursor)
 
-        if isinstance(group, Group):
-            group = self._group.group(group)
-
-        self._grouped_set = Columns(group)
+        self._grouped_set = Columns(cursor)
         return self._grouped_set
 
     def names(self) -> List[str]:
@@ -169,7 +164,7 @@ class Columns:
                         raise Exception("Encountered multiple values")
 
             if self._grouped_set:
-                key = self._grouped_set._group.cursor_group.name()
+                key = self._grouped_set._cursor.cursor_group.name()
                 resolved[key] = self._grouped_set.normalize()
 
             result.append(resolved)
@@ -230,7 +225,7 @@ class Columns:
         set's grouping.
         """
 
-        for record in self._group:
+        for record in self._cursor:
             if isinstance(record, list) or isgenerator(record):
                 for d in record:
                     yield d

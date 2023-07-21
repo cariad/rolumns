@@ -18,10 +18,10 @@ class Cursor:
 
     def __init__(
         self,
-        group: Union[Group, str],
+        group: Optional[Union[Group, str]] = None,
         parent: Optional[Cursor] = None,
     ) -> None:
-        if isinstance(group, str):
+        if isinstance(group, str) or group is None:
             group = ByPath(group)
 
         self._data: Optional[Any] = None

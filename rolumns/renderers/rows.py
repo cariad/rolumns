@@ -35,7 +35,7 @@ class RowsRenderer:
         """
 
         if data is not None:
-            self._columns.data.load(data)
+            self._columns.cursor.load(data)
 
         column_ids = self._mask or self._columns.names()
         yield column_ids

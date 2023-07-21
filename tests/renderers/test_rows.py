@@ -244,7 +244,7 @@ def test_udf_repeat_static() -> None:
                 "Emergency",
                 Source(
                     ByKey.value("static.emergency_phone.value"),
-                    data=cs.data,
+                    cursor=cs.cursor,
                 ),
             ),
         )
