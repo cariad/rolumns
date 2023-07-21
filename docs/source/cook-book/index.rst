@@ -15,6 +15,7 @@ These articles describe common scenarios and solutions, starting with the simple
     grouping-dictionary-lists
     translating
     conditional-translating
+    constants
     udfs
     udfs-with-repeating
     choosing-columns

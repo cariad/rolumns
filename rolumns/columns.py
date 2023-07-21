@@ -69,14 +69,14 @@ class Columns:
 
             columns = Columns()
             columns.add("Name", "name")
-            columns.add("Email", Source("email"))
+            columns.add("Email", Source(path="email"))
 
             awards = columns.group("awards")
             # "awards" is also a column set
             awards.add("Awards")
         """
 
-        source = source if isinstance(source, Source) else Source(source)
+        source = source if isinstance(source, Source) else Source(path=source)
         column = Column(name, source)
         self._columns.append(column)
 
