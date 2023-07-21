@@ -13,6 +13,9 @@ class ByPath(Group):
     def __init__(self, path: Optional[str] = None) -> None:
         self._path = path
 
+    def __eq__(self, other: Any) -> bool:
+        return isinstance(other, ByPath) and other.path == self.path
+
     def __str__(self) -> str:
         return f'ByPath("{self._path or ""}")'
 
@@ -22,6 +25,14 @@ class ByPath(Group):
         """
 
         return self._path or ""
+
+    @property
+    def path(self) -> Optional[str]:
+        """
+        Path.
+        """
+
+        return self._path
 
     def resolve(self, data: Any) -> Iterable[Any]:
         """
