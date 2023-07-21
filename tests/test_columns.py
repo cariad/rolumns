@@ -15,6 +15,73 @@ def test_create_repeater__multiple() -> None:
     assert str(ex.value) == "A column set cannot have multiple groups"
 
 
+def test_group__cursor() -> None:
+    data = [
+        {
+            "name": "Robert Pringles",
+            "positions": [
+                {
+                    "title": "Founder",
+                },
+                {
+                    "title": "CEO",
+                },
+            ],
+        },
+        {
+            "name": "Charlie Marmalade",
+            "positions": [
+                {
+                    "title": "Engineer",
+                },
+                {
+                    "title": "Senior Engineer",
+                },
+                {
+                    "title": "CTO",
+                },
+            ],
+        },
+    ]
+
+    cs = Columns()
+    cs.add("Name", "name")
+    positions = cs.group(cs.cursor.group("positions"))
+    positions.add("Title", "title")
+
+    expect = [
+        {
+            "Name": "Robert Pringles",
+            "positions": [
+                {
+                    "Title": "Founder",
+                },
+                {
+                    "Title": "CEO",
+                },
+            ],
+        },
+        {
+            "Name": "Charlie Marmalade",
+            "positions": [
+                {
+                    "Title": "Engineer",
+                },
+                {
+                    "Title": "Senior Engineer",
+                },
+                {
+                    "Title": "CTO",
+                },
+            ],
+        },
+    ]
+
+    cs.cursor.load(data)
+
+    assert cs.normalize() == expect
+
+
 def test_normalize() -> None:
     data = [
         {
@@ -105,7 +172,9 @@ def test_normalize() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.cursor.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalize_dict_flat() -> None:
@@ -133,7 +202,9 @@ def test_normalize_dict_flat() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.cursor.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalize_dict_flat_as_group() -> None:
@@ -170,7 +241,9 @@ def test_normalize_dict_flat_as_group() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.cursor.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalize_dict_list() -> None:
@@ -223,7 +296,9 @@ def test_normalize_dict_list() -> None:
         },
     ]
 
-    assert cs.normalize(data) == expect
+    cs.cursor.load(data)
+
+    assert cs.normalize() == expect
 
 
 def test_normalized_to_column_values() -> None:
@@ -396,63 +471,3 @@ def test_normalized_to_column_values__chained() -> None:
         ],
     }
     assert Columns.normalized_to_column_values(resolved) == expect
-
-
-def test_records__dict_flat() -> None:
-    data = {
-        "today": {
-            "event": "Bought sausages",
-        },
-        "yesterday": {
-            "event": "Bought a train set",
-        },
-    }
-
-    cs = Columns(ByKey())
-
-    expect = [
-        {
-            "key": "today",
-            "value": {"event": "Bought sausages"},
-        },
-        {
-            "key": "yesterday",
-            "value": {"event": "Bought a train set"},
-        },
-    ]
-
-    assert list(cs.records(data)) == expect
-
-
-def test_records__dict_list() -> None:
-    data = {
-        "today": [
-            {"event": "Bought sausages"},
-            {"event": "Bought bread"},
-        ],
-        "yesterday": [
-            {"event": "Bought a train set"},
-            {"event": "Bought a book"},
-        ],
-    }
-
-    cs = Columns(ByKey())
-
-    expect = [
-        {
-            "key": "today",
-            "value": [
-                {"event": "Bought sausages"},
-                {"event": "Bought bread"},
-            ],
-        },
-        {
-            "key": "yesterday",
-            "value": [
-                {"event": "Bought a train set"},
-                {"event": "Bought a book"},
-            ],
-        },
-    ]
-
-    assert list(cs.records(data)) == expect

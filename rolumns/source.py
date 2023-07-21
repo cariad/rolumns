@@ -1,5 +1,6 @@
 from typing import Any, Iterable, Optional
 
+from rolumns.cursor import Cursor
 from rolumns.data_resolver import DataResolver
 from rolumns.exceptions import TranslationFailed
 from rolumns.translation_state import TranslationState
@@ -40,8 +41,10 @@ class Source:
     def __init__(
         self,
         path: Optional[str],
+        cursor: Optional[Cursor] = None,
         translator: Optional[Translator] = None,
     ) -> None:
+        self._cursor = cursor
         self._path = path
         self._translator = translator
 
@@ -49,6 +52,9 @@ class Source:
         """
         Yields each prescribed value of :code:`record`.
         """
+
+        if self._cursor is not None:
+            record = self._cursor.current
 
         for datum in DataResolver(record).resolve(self._path):
             if self._translator:

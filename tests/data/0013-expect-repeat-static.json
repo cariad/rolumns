@@ -1,0 +1,21 @@
+[
+  ["Boss",            "Device",    "Number"],
+  ["The Cheese Boss", "Fax",       "+44 000 000"],
+  ["The Cheese Boss", "VOIP",      "+45 000 000"],
+  ["The Cheese Boss", "Emergency", "+46 000 000"],
+  ["The Cheese Boss", "Fax",       "+44 000 001"],
+  ["The Cheese Boss", "VOIP",      "+45 000 001"],
+  ["The Cheese Boss", "Emergency", "+46 000 000"],
+  ["The Cheese Boss", "Fax",       "+44 000 002"],
+  ["The Cheese Boss", "VOIP",      "+45 000 002"],
+  ["The Cheese Boss", "Emergency", "+46 000 000"],
+  ["The Bean Boss",   "Fax",       "+44 001 000"],
+  ["The Bean Boss",   "VOIP",      "+45 001 000"],
+  ["The Bean Boss",   "Emergency", "+46 001 000"],
+  ["The Bean Boss",   "Fax",       "+44 001 001"],
+  ["The Bean Boss",   "VOIP",      "+45 001 001"],
+  ["The Bean Boss",   "Emergency", "+46 001 000"],
+  ["The Bean Boss",   "Fax",       "+44 001 002"],
+  ["The Bean Boss",   "VOIP",      "+45 001 002"],
+  ["The Bean Boss",   "Emergency", "+46 001 000"]
+]

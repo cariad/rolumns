@@ -26,15 +26,21 @@ class RowsRenderer:
 
         self._mask.append(column)
 
-    def render(self, data: Any) -> Iterable[List[Any]]:
+    def render(
+        self,
+        data: Optional[Any] = None,
+    ) -> Iterable[List[Any]]:
         """
         Translates :code:`data` into an iterable list of rows.
         """
 
+        if data is not None:
+            self._columns.cursor.load(data)
+
         column_ids = self._mask or self._columns.names()
         yield column_ids
 
-        columns = self._columns.to_column_values(data)
+        columns = self._columns.to_column_values()
         height = 0
 
         for _, value in columns.items():

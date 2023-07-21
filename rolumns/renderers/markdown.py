@@ -140,7 +140,10 @@ class MarkdownRenderer:
 
         return padding + value + " "
 
-    def render(self, data: Any) -> Iterable[str]:
+    def render(
+        self,
+        data: Optional[Any] = None,
+    ) -> Iterable[str]:
         """
         Translates :code:`data` into an iterable list of strings that make up a
         Markdown table row-by-row.
@@ -153,7 +156,10 @@ class MarkdownRenderer:
             if index == 0:
                 yield self._make_header_separator(len(row))
 
-    def render_string(self, data: Any) -> str:
+    def render_string(
+        self,
+        data: Optional[Any] = None,
+    ) -> str:
         """
         Translates :code:`data` into a Markdown table.
         """

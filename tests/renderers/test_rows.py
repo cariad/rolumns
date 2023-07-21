@@ -226,3 +226,31 @@ def test_udf_from_repeating_group() -> None:
     udfs.add("Number", "value")
 
     assert list(RowsRenderer(cs).render(inp)) == exp
+
+
+def test_udf_repeat_static() -> None:
+    (inp, exp) = load_test_case(13, expect_variant="repeat-static")
+
+    cs = Columns(ByKey())
+    cs.add("Boss", ByKey.value("static.boss_name.value"))
+
+    fund_group = cs.group(ByKey.value("repeating.contact_details"))
+
+    udfs = fund_group.group(
+        ByUserDefinedFields(
+            UserDefinedField("Fax", "fax.value"),
+            UserDefinedField("VOIP", "voip.value"),
+            UserDefinedField(
+                "Emergency",
+                Source(
+                    ByKey.value("static.emergency_phone.value"),
+                    cursor=cs.cursor,
+                ),
+            ),
+        )
+    )
+
+    udfs.add("Device", "name")
+    udfs.add("Number", "value")
+
+    assert list(RowsRenderer(cs).render(inp)) == exp

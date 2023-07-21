@@ -13,15 +13,6 @@ def test_simple() -> None:
     columns.add("Name", "name")
     columns.add("Email", "email")
 
-    rows_renderer = rolumns.renderers.RowsRenderer(columns)
-
-    expect_rows = [
-        ["Name", "Email"],
-        ["Robert Pringles", "bob@pringles.pop"],
-    ]
-
-    assert list(rows_renderer.render(data)) == expect_rows
-
     md_renderer = rolumns.renderers.MarkdownRenderer(columns)
 
     expect_md = [

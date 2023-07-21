@@ -3,6 +3,9 @@
     "static": {
       "boss_name": {
         "value": "The Cheese Boss"
+      },
+      "emergency_phone": {
+        "value": "+46 000 000"
       }
     },
     "repeating": {
@@ -38,6 +41,9 @@
     "static": {
       "boss_name": {
         "value": "The Bean Boss"
+      },
+      "emergency_phone": {
+        "value": "+46 001 000"
       }
     },
     "repeating": {
