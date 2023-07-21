@@ -40,7 +40,7 @@ class Cursor:
         if isinstance(self._current, list):
             current_list = cast(Iterator[Any], self._current)
             self._resolved = iter(current_list)
-            self._current = next(resolved)
+            self._current = next(self._resolved)
 
         return self.current
 
