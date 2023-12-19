@@ -19,6 +19,15 @@ class DataResolver:
 
     @staticmethod
     def _resolve(parts: List[str], data: Any) -> Iterable[Optional[Any]]:
+        if data is None:
+            logger.warning(
+                "Cannot use %s as indices of None, so yielding None",
+                parts,
+            )
+
+            yield None
+            return
+
         if isinstance(data, list):
             for d in data:
                 for r in DataResolver._resolve(parts.copy(), d):

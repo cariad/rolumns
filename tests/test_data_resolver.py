@@ -9,6 +9,13 @@ from rolumns.data_resolver import DataResolver
     "data, path, expect",
     [
         (
+            None,
+            "name",
+            [
+                None,
+            ],  # There is no "name" in None.
+        ),
+        (
             {},
             "name",
             [
