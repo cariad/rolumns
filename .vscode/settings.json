@@ -8,6 +8,7 @@
     "genindex",
     "isoparse",
     "noindex",
+    "NOTSET",
     "openpyxl",
     "pdoc",
     "pipenv",
