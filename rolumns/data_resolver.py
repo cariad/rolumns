@@ -1,6 +1,6 @@
 from typing import Any, Iterable, List, Optional
 
-from rolumns.logging import logger
+from rolumns.logging import logger, missing_value_logger
 
 
 class DataResolver:
@@ -38,17 +38,25 @@ class DataResolver:
 
             try:
                 data = data[part]
+
             except KeyError:
-                logger.warning('No "%s" in %s', part, data)
+                missing_value_logger.warning(
+                    'No "%s" in %s',
+                    part,
+                    data,
+                )
+
                 yield None
                 return
+
             except TypeError as ex:
-                logger.warning(
+                missing_value_logger.warning(
                     'Cannot use "%s" as index of %s (%s)',
                     part,
                     data,
                     ex,
                 )
+
                 raise
 
             if not parts:

@@ -27,6 +27,7 @@ Rolumns is released under the MIT Licence at https://github.com/cariad/rolumns b
     :titlesonly:
 
     self
+    logging
     cook-book/index
     package/index
     genindex
