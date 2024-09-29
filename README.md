@@ -4,7 +4,7 @@
 
 **Rolumns** is a Python package for squishing data into rows and columns.
 
-Full documentation is online at **[rolumns.dev](https://rolumns.dev)**.
+Full documentation is online at **[cariad.github.io/rolumns](https://cariad.github.io/rolumns)**.
 
 ## Installation
 
